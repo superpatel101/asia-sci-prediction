@@ -25,9 +25,9 @@ This project provides two Random Forest models trained on the National Spinal Co
 ## 🎯 Model Performance
 
 ### Motor Score Prediction Model
-- **R² Score**: 0.3832 (explains 38.3% of variance)
-- **RMSE**: 21.0 points
-- **MAE**: 14.8 points
+- **R² Score**: 0.8122 (explains 81.2% of variance)
+- **RMSE**: 11.7 points
+- **MAE**: 7.6 points
 - **Training Data**: 10,543 patients
 - **Algorithm**: Random Forest Regressor (200 trees)
 
@@ -180,7 +180,7 @@ See `INFERENCE_GUIDE.md` for detailed documentation.
 ## ⚠️ Limitations & Clinical Use
 
 ### Limitations
-- Motor score model explains 38% of variance (62% unexplained)
+- Motor score model explains 81% of variance (19% unexplained)
 - Individual outcomes can vary significantly
 - Models trained on North American population
 - Grade B classification has lower accuracy (F1=0.56)

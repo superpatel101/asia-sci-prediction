@@ -126,6 +126,13 @@ def about():
 
 if __name__ == '__main__':
     # Run the app
-    port = int(os.environ.get('PORT', 5000))
+    # Use port 5001 instead of 5000 (5000 is used by macOS AirPlay)
+    port = int(os.environ.get('PORT', 5001))
+    print(f"\n{'='*70}")
+    print(f"🚀 ASIA SCI Prediction Server Starting...")
+    print(f"{'='*70}")
+    print(f"\n✓ Server running at: http://localhost:{port}")
+    print(f"✓ Press Ctrl+C to stop the server")
+    print(f"\n{'='*70}\n")
     app.run(host='0.0.0.0', port=port, debug=False)
 

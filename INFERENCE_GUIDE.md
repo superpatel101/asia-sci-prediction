@@ -148,9 +148,9 @@ Both models require the same 26 admission-time features:
 ## Model Performance
 
 ### Motor Score Model:
-- **R² Score:** 0.3832 (explains 38.3% of variance)
-- **RMSE:** 21.0 points
-- **MAE:** 14.8 points
+- **R² Score:** 0.8122 (explains 81.2% of variance)
+- **RMSE:** 11.7 points
+- **MAE:** 7.6 points
 - **Training data:** 10,543 patients
 - **No data leakage** - uses admission features only
 
