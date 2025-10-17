@@ -155,7 +155,7 @@ print("\n" + "="*80)
 print("2. TRAINING IMPAIRMENT GRADE PREDICTION MODEL")
 print("="*80)
 
-df_imp = pd.read_csv('ModelreadyAISMedsurgtodischarge.csv')
+df_imp = pd.read_csv('/Users/aaryanpatel/Desktop/ModelreadyAISMedsurgtodischarge.csv')
 print(f"Impairment dataset shape: {df_imp.shape}")
 
 # Separate features and target
