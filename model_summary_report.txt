@@ -1,0 +1,64 @@
+
+RANDOM FOREST MODEL - ASIA MOTOR SCORE PREDICTION
+============================================================
+
+DATASET INFORMATION:
+- Total samples: 10543
+- Features: 32
+- Target variable: AASATotD
+- Training samples: 8434
+- Test samples: 2109
+
+MODEL PARAMETERS:
+- Algorithm: Random Forest Regressor
+- Number of trees: 200
+- Max depth: 20
+- Min samples split: 5
+- Min samples leaf: 2
+- Max features: sqrt
+
+PERFORMANCE METRICS:
+Training Set:
+  - R² Score: 0.9654
+  - RMSE: 5.0556
+  - MAE: 3.2689
+
+Test Set:
+  - R² Score: 0.9053
+  - RMSE: 8.3009
+  - MAE: 5.4211
+
+Cross-Validation:
+  - Mean R² Score: 0.9052 (+/- 0.0156)
+
+TOP 10 MOST IMPORTANT FEATURES:
+ feature  importance
+AASATotA    0.267042
+AASAImDs    0.173311
+ABdMMDis    0.122963
+AASAImAd    0.097728
+AFScorDs    0.080308
+ANurLvlD    0.052407
+ANurLvlA    0.046007
+AFScorRb    0.040517
+ AUMVAdm    0.028300
+AI2RhADa    0.022730
+
+FILES GENERATED:
+1. random_forest_asia_motor_model.pkl - Trained model
+2. imputer.pkl - Data imputer for preprocessing
+3. feature_names.pkl - List of feature names
+4. feature_importance.csv - Complete feature importance rankings
+5. model_predictions.png - Actual vs predicted & residual plots
+6. feature_importance.png - Feature importance visualization
+7. distributions.png - Distribution comparison plots
+8. model_summary_report.txt - This summary report
+
+MODEL INTERPRETATION:
+- R² Score indicates the proportion of variance explained by the model
+- RMSE (Root Mean Squared Error) represents average prediction error
+- MAE (Mean Absolute Error) represents average absolute prediction error
+- Feature importance shows which variables most influence predictions
+
+============================================================
+Generated on: 2025-10-15 00:12:36

@@ -1,0 +1,57 @@
+
+CLEAN MOTOR SCORE PREDICTION MODEL (NO DATA LEAKAGE)
+======================================================================
+
+DATASET INFORMATION:
+- Total samples: 10543
+- Features: 26 (ADMISSION-TIME ONLY)
+- Target: AASATotD
+- Training samples: 8434
+- Test samples: 2109
+
+KEY DIFFERENCE FROM PREVIOUS MODEL:
+✓ Uses ONLY admission/injury-time features
+✓ NO discharge features included
+✓ Truly predictive (no data leakage)
+✓ Can be used at admission for early counseling
+
+PERFORMANCE METRICS:
+Training Set:
+  - R² Score: 0.9304
+  - RMSE: 7.1695
+  - MAE: 4.6431
+
+Test Set:
+  - R² Score: 0.8122
+  - RMSE: 11.6901
+  - MAE: 7.6379
+
+Cross-Validation:
+  - Mean R²: 0.8149 (+/- 0.0335)
+
+TOP 10 FEATURES (ADMISSION-TIME ONLY):
+ feature  importance
+AASATotA    0.429072
+AASAImAd    0.197259
+AFScorRb    0.085445
+ANurLvlA    0.066515
+ AUMVAdm    0.054125
+AI2RhADa    0.044848
+ AInjAge    0.026388
+ATrmEtio    0.014316
+AEducLvl    0.009302
+APrimPay    0.008307
+
+MODEL SPECIFICATIONS:
+- Algorithm: Random Forest Regressor
+- Trees: 200
+- Max Depth: 20
+- Features Used: 26
+
+CLINICAL UTILITY:
+✓ Predicts discharge motor scores at ADMISSION
+✓ Useful for early patient counseling
+✓ Helps set realistic expectations
+✓ Guides treatment planning and resource allocation
+
+Generated: 2025-10-15 07:22:54

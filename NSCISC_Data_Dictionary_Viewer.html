@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>NSCISC Data Dictionary - ASIA Motor ML Models</title>
+<style>
+  body { 
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; 
+    margin: 0;
+    padding: 0;
+    background: #f8f9fa;
+  }
+  .header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 32px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .header h1 { 
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  .header .subtitle { 
+    color: rgba(255,255,255,0.9);
+    margin: 4px 0;
+    font-size: 15px;
+  }
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  .info-box {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .info-box h2 {
+    margin-top: 0;
+    color: #667eea;
+    font-size: 18px;
+  }
+  .info-box p {
+    margin: 8px 0;
+    line-height: 1.6;
+    color: #4b5563;
+  }
+  .controls { 
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 16px;
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  input[type="text"], select { 
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    min-width: 240px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+  }
+  button { 
+    padding: 10px 16px;
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  button:hover { 
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+  button.primary {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+  }
+  button.primary:hover {
+    background: #5568d3;
+    border-color: #5568d3;
+  }
+  .table-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  table { 
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td { 
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+  }
+  th { 
+    background: #f9fafb;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    cursor: pointer;
+    font-weight: 600;
+    color: #374151;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  th:hover {
+    background: #f3f4f6;
+  }
+  tr:hover {
+    background: #f9fafb;
+  }
+  .tag { 
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #e0e7ff;
+    color: #4338ca;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag.medical { background: #fce7f3; color: #be185d; }
+  .tag.injury { background: #fef3c7; color: #92400e; }
+  .tag.functional { background: #d1fae5; color: #065f46; }
+  .tag.neurological { background: #dbeafe; color: #1e40af; }
+  .tag.followup { background: #fde68a; color: #78350f; }
+  .nowrap { white-space: nowrap; }
+  .count { 
+    color: #6b7280;
+    font-size: 14px;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .row-actions button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  textarea { 
+    width: 100%;
+    min-height: 70px;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-family: inherit;
+  }
+  .muted { color: #9ca3af; }
+  .sel-col { width: 36px; text-align: center; }
+  ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  ul li {
+    margin: 4px 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+  .highlight {
+    color: #667eea;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1>📊 NSCISC Data Dictionary Viewer</h1>
+    <div class="subtitle">Interactive Variable Dictionary for ASIA Motor Score & Impairment Classification Models</div>
+    <div class="subtitle">Dataset: National Spinal Cord Injury Statistical Center (NSCISC) Version 8</div>
+  </div>
+
+  <div class="container">
+    <div class="info-box">
+      <h2>📖 About This Dataset</h2>
+      <p>
+        This interactive viewer displays the <strong>50 key variables</strong> from the NSCISC database used in our machine learning models 
+        to predict ASIA motor scores and impairment grades following traumatic spinal cord injury.
+      </p>
+      <p>
+        <strong>Models trained:</strong>
+        <br>• <span class="highlight">Model 1:</span> Random Forest Regression for ASIA Motor Score at Discharge (AASATotD) - R² = 0.812
+        <br>• <span class="highlight">Model 2:</span> Random Forest Classification for ASIA Impairment Grade (AASAImDs) - Accuracy = 82.6%, AUC = 94.2%
+      </p>
+      <p>
+        <strong>Features:</strong> Search by variable name, filter by category, view detailed code descriptions, and explore valid value ranges.
+        Click column headers to sort. Enable edit mode to modify the dictionary (changes are local only).
+      </p>
+    </div>
+
+    <div class="controls">
+      <input id="search" type="text" placeholder="🔍 Search variables, codes, descriptions..."/>
+      <select id="category">
+        <option value="">All categories</option>
+      </select>
+      <button id="addRow">➕ Add row</button>
+      <button id="insertBelowSelected">⬇️ Insert below selected</button>
+      <button id="exportJson" class="primary">💾 Export JSON</button>
+      <button id="exportCsv" class="primary">📄 Export CSV</button>
+      <label style="margin-left: auto">
+        <input type="checkbox" id="editMode"/>
+        <span>✏️ Edit mode</span>
+      </label>
+      <label>
+        📂 Load JSON
+        <input type="file" id="loadJson" accept=".json"/>
+      </label>
+    </div>
+    
+    <div class="count" id="count"></div>
+
+    <div class="table-container">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th class="sel-col">Sel</th>
+            <th data-key="category">Category</th>
+            <th data-key="var_id">Variable ID</th>
+            <th data-key="canonical">Variable (Canonical)</th>
+            <th data-key="nscisc_code">NSCISC Code</th>
+            <th data-key="description">Description</th>
+            <th data-key="characters" class="nowrap">Chars</th>
+            <th data-key="codes">Codes / Values (summary)</th>
+            <th>Codes List (expanded)</th>
+            <th data-key="include_values">Included Values / Range</th>
+            <th data-key="notes">Notes</th>
+            <th data-key="pdf_page" class="nowrap">Page</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+  let DATA = [{"id":"row_00001","category":"Sociodemographic","canonical":"age_years","nscisc_code":"AInjAge","description":"Age at time of injury (years).","characters":"3","codes":"0 Newborn or less than 1 year of age\n0–120 valid; 999=Unknown","codes_list":[],"notes":"Integer; derived from DOB and injury date. It seems that the csv has these in ranges and there are very few 999s.","pdf_page":"98","var_id":"133","include_values":"0-120,999"},{"id":"row_00002","category":"Sociodemographic","canonical":"sex","nscisc_code":"ASex","description":"Sex of patient.","characters":"1","codes":"1=Male; 2=Female; 3=Other/Transgender; 9=Unknown","codes_list":[],"notes":"","pdf_page":"99","var_id":"134","include_values":"1,2,3,9"},{"id":"row_00003","category":"Sociodemographic","canonical":"race","nscisc_code":"ARace","description":"Race of patient.","characters":"1","codes":"1=White; 2=Black; 3=American Indian/Alaska Native; 4=Asian,Pacific Islander; 5=Some Other Race,Multiracial 7=Declined/Participant doesn't know; 9=Unknown","codes_list":[],"notes":"","pdf_page":"165","var_id":"135","include_values":"1,2,3,4,5,7,9"},{"id":"row_00004","category":"Sociodemographic","canonical":"ethnicity_hispanic","nscisc_code":"AHispnic","description":"Hispanic or Latino origin.","characters":"1","codes":"0 Not of Hispanic origin\n1 Hispanic or Latino origin (includes Mexican, Cuban, Puerto Rican and\nother Latin American and Spanish)\n7 Declined/Participant doesn't know\n9 Unknown","codes_list":[],"notes":"","pdf_page":"164","var_id":"136","include_values":"0,1,7,9"},{"id":"row_00005","category":"Sociodemographic","canonical":"marital_status_at_injury","nscisc_code":"AMarStIj","description":"Marital status at time of injury.","characters":"1","codes":"1 Never Married (Single)\n2 Married\n3 Divorced\n4 Separated\n5 Widowed\n6 Other, unclassified\n7 Living with Significant Other, Partner, Unmarried Couple\n9 Unknown","codes_list":[],"notes":"","pdf_page":"167","var_id":"145","include_values":"1,2,3,4,5,6,7,9"},{"id":"row_00006","category":"Sociodemographic","canonical":"education_level","nscisc_code":"AEducLvl","description":"Highest educational level completed.","characters":"1","codes":"1 8th grade or less (includes ages 0 to 5)\n2 9th through 11th grade\n3 High School Diploma or G.E.D.\n4 Associate Degree (A.A. – Junior College Degree)\n5 Bachelors Degree\n6 Masters Degree\n7 Doctorate (Ph.D., M.D., law degrees, etc.)\n8 Other, unclassified (3-year nursing degree, special education)\n9 Unknown","codes_list":[],"notes":"Ordinal categorical.","pdf_page":"168","var_id":"147","include_values":"1,2,3,4,5,6,7,8,9"},{"id":"row_00007","category":"Sociodemographic","canonical":"primary_status_preinjury","nscisc_code":"APrLvlSt","description":"This variable specifies the primary occupational, educational or training status\nof the patient at the time of injury.","characters":"2","codes":"1 Working (competitive labor market: includes military (legally employed).\n2 Homemaker (must be living with at least one other person)\n3 On-the-job training\n4 Sheltered workshop\n5 Retired\n6 Student (includes ages 0 to 5)\n7 Unemployed (may or may not be looking for work)\n8 Other, unclassified (includes volunteer, medical leave, illegal employment, paid-\nunder-the-table)\n9 Unknown","codes_list":[],"notes":"","pdf_page":"169","var_id":"148","include_values":"1,2,3,4,5,6,7,8,9"},{"id":"row_00008","category":"Sociodemographic","canonical":"family_income_level","nscisc_code":"AFmIncLv","description":"This variable categorizes the income level of the family members living in the\nsame household as the participant.","characters":"1","codes":"1 < $25,000\n2 $25,000 - $49,999\n3 $50,000 - $74,999\n4 > $75,000\n6 Participant doesn't know\n7 Declined\n9 Unknown/Interview not done","codes_list":[],"notes":"","pdf_page":"173","var_id":"1397","include_values":"1,2,3,4,5,6,7,9"},{"id":"row_00009","category":"Sociodemographic","canonical":"primary_insurance","nscisc_code":"APrimPay","description":"This variable documents the primary payer of medical costs during inpatient\nstay. This care includes hospitalization, outpatient medical and rehabilitation\nservices, vocational rehabilitation, education, training, equipment, medications\nand supplies, attendant care and custodial care. It does not include income\nmaintenance.","characters":"1","codes":"1 Private Insurance (includes 'no-fault', BCBS, United Health, etc.)\n2 Medicare\n3 Medicaid\n4 Worker's Compensation\n5 Veterans Administration\n6 Other Government (e.g. Bureau of Indian Affairs; Crippled Children's\nServices; Dept. of Vocational Rehab)\n7 No Pay (indigent, no resources)\n8 Private funds (e.g., self-pay; hometown fund raisers)\n9 Other, unclassified (e.g., SCI system patient care funds, TRICARE;\nChampus; Homebound, victim's assistance funds, etc.)\n77 Declined/ Participant doesn't know\n99 Unknown","codes_list":[],"notes":"","pdf_page":"175","var_id":"1398","include_values":"1,2,3,4,5,6,7,8,9,77,99"},{"id":"row_00010","category":"Sociodemographic","canonical":"residence_at_injury","nscisc_code":"APResInj","description":"This variable specifies where the patient is actually residing\n1) at the time of injury\n2) at discharge from the System","characters":"2","codes":"1 Private Residence: includes house, apartment, hogan, mobile home,\nfoster home, condominium, boat, individual residence in a retirement\nvillage\n2 Hospital: includes mental hospital, hospital in a retirement village\n3 Nursing Home: includes medi-center, skilled nursing facilities,\ninstitutions licensed as hospitals but providing essentially long-term,\ncustodial, chronic disease care, etc.\n4 Group Living Situation: includes transitional living facility,\ndormitory (school, church, college), military barracks, boarding\nschool, boarding home, bunkhouse, boys' ranch, fraternity/sorority\nhouse, labor camp, commune, shelter, convent, monastery, or other\nreligious order residence, etc.\n5 Correctional Institution: includes prison, penitentiary, jail,\ncorrectional center, etc.\n6 Hotel/motel: includes YWCA, YMCA, guest ranch, inn\n7 Deceased (valid in discharge position only)\n8 Other, unclassified\n9 Homeless: cave, car, tent, etc.\n10 Assisted Living\n99 Unknown","codes_list":[],"notes":"","pdf_page":"100","var_id":"143","include_values":"1,2,3,4,5,6,7,8,9,10,99"},{"id":"row_00011","category":"Sociodemographic","canonical":"residence_at_discharge","nscisc_code":"APResDis","description":"This variable specifies where the patient is actually residing\n1) at the time of injury\n2) at discharge from the System","characters":"2","codes":"1 Private Residence: includes house, apartment, hogan, mobile home,\nfoster home, condominium, boat, individual residence in a retirement\nvillage\n2 Hospital: includes mental hospital, hospital in a retirement village\n3 Nursing Home: includes medi-center, skilled nursing facilities,\ninstitutions licensed as hospitals but providing essentially long-term,\ncustodial, chronic disease care, etc.\n4 Group Living Situation: includes transitional living facility,\ndormitory (school, church, college), military barracks, boarding\nschool, boarding home, bunkhouse, boys' ranch, fraternity/sorority\nhouse, labor camp, commune, shelter, convent, monastery, or other\nreligious order residence, etc.\n5 Correctional Institution: includes prison, penitentiary, jail,\ncorrectional center, etc.\n6 Hotel/motel: includes YWCA, YMCA, guest ranch, inn\n7 Deceased (valid in discharge position only)\n8 Other, unclassified\n9 Homeless: cave, car, tent, etc.\n10 Assisted Living\n99 Unknown","codes_list":[],"notes":"same as residence on admit","pdf_page":"100","var_id":"144","include_values":"1,2,3,4,5,6,7,8,9,10,99"},{"id":"row_00012","category":"Medical History","canonical":"diabetes_history","nscisc_code":"ADiabete","description":"This variable identifies the presence and treatment of diabetes at any time prior\nto the SCI. ","characters":"1","codes":"0 No\n1 Yes, controlled by medication (oral or injection)\n2 Yes, controlled by diet and/or exercise only (no medication)\n3 Yes, but no method of control is used\n4 Yes, but unknown method of control\n7 Declined/Participant doesn't know\n9 Unknown","codes_list":[],"notes":"","pdf_page":"179","var_id":"1407","include_values":"0,1,2,3,4,7,9"},{"id":"row_00013","category":"Medical History","canonical":"hypertension_history","nscisc_code":"AHypert","description":"History of hypertension.","characters":"1","codes":"Use codes list","codes_list":["0 = No","1 = Yes","7 = Declined / Participant doesn't know","9 = Unknown"],"notes":"RESTRICTED","pdf_page":null,"var_id":"","include_values":""},{"id":"row_00014","category":"Medical History","canonical":"arthritis_history","nscisc_code":"AArthrit","description":"History of arthritis (OA/RA).","characters":"1","codes":"Use codes list","codes_list":["0 = No","1 = Yes","7 = Declined / Participant doesn't know","9 = Unknown"],"notes":"RESTRICTED","pdf_page":null,"var_id":"","include_values":""},{"id":"row_00015","category":"Medical History","canonical":"hyperlipidemia_history","nscisc_code":"AHyperli","description":"History of hyperlipidemia.","characters":"1","codes":"Use codes list","codes_list":["0 = No","1 = Yes","7 = Declined / Participant doesn't know","9 = Unknown"],"notes":"RESTRICTED","pdf_page":null,"var_id":"","include_values":""},{"id":"row_00016","category":"Medical History","canonical":"depression_history","nscisc_code":"ADepress","description":"This variable reports a diagnosis by a health professional of depression prior to\nthe spinal cord injury.","characters":"1","codes":"0 No\n1 Yes\n7 Declined/ Participant doesn't know\n9 Unknown","codes_list":[],"notes":"","pdf_page":"177","var_id":"1403","include_values":"0,1,7,9"},{"id":"row_00017","category":"Medical History","canonical":"anxiety_history","nscisc_code":"AAnxiety","description":"This variable reports a diagnosis of post-traumatic stress disorder, panic disorder\nor generalized anxiety disorder prior to the spinal cord injury. If more than 1\ndiagnosis occurred, code the diagnosis that developed first. If it is unknown\nwhich diagnosis developed first, use code 4","characters":"1","codes":"0 No\n1 Yes, post-traumatic stress disorder (PTSD)\n2 Yes, panic disorder\n3 Yes, generalized anxiety disorder, (GAD)\n4 Yes, multiple diagnoses, first diagnosis unknown\n7 Declined/ Participant doesn't know\n9 Unknown","codes_list":[],"notes":"","pdf_page":"178","var_id":"1402","include_values":"0,1,2,3,4,7,9"},{"id":"row_00018","category":"Medical History","canonical":"alcohol_frequency","nscisc_code":"AAlcRate","description":"This variable categorizes the number of times a participant drank alcohol during the\nyear before spinal cord injury. Participant must be at least 18 years old.","characters":"1","codes":"0 None\n1 Once a month or less\n2 2 to 4 times a month\n3 2 to 3 times a week\n4 4 or more times a week\n7 Declined/ Participant doesn't know\n9 Unknown/Interview not done/Under 18 years","codes_list":[],"notes":"","pdf_page":"180","var_id":"1399","include_values":"0,1,2,3,4,7,9"},{"id":"row_00019","category":"Medical History","canonical":"alcohol_quantity","nscisc_code":"AAlcNbDr","description":"This variable categorizes the number of alcoholic drinks a participant has on a\ntypical day when drinking. Participant must be at least 18 years old","characters":"1","codes":"0 None\n1 1 or 2\n2 3 or 4\n3 5 or 6\n4 7 to 9\n5 10 or more\n7 Declined/ Participant doesn't know\n9 Unknown/Interview not done/Under 18","codes_list":[],"notes":"","pdf_page":"181","var_id":"1400","include_values":"0,1,2,3,4,5,7,9"},{"id":"row_00020","category":"Medical History","canonical":"alcohol_binge_freq","nscisc_code":"AAlc6Mor","description":"This variable categorizes the number of times a participant drank six or more\nalcoholic drinks during the year before spinal cord injury. Participant must be at\nleast 18 years old","characters":"1","codes":"0 None\n1 Less than monthly\n2 Monthly\n3 Weekly\n4 Daily or almost daily\n7 Declined/ Participant doesn't know\n9 Unknown/Interview not done/Under 18","codes_list":[],"notes":"","pdf_page":"182","var_id":"1401","include_values":"0,1,2,3,4,7,9"},{"id":"row_00021","category":"Medical History","canonical":"bmi","nscisc_code":"Derived: AWghtRhb & AHghtRhb","description":"Body Mass Index at rehab (kg/m²).","characters":"-","codes":"Derived: BMI = weight_kg / (height_m)^2\n={(AWghtRhb(lbs)/AHghtRhb(in))}","codes_list":[],"notes":"Have to do formula here, BWeight is p112 1-887 Valid range\n888 Patient weighs more than 887 lbs\n999 Unknown or amputated limb\nBlank (only if Category of Care = \"5\"),AHghtRhb, p111,5 - 100 Valid range\n999 Unknown or bilateral leg amputation ","pdf_page":"111,112","var_id":"","include_values":""},{"id":"row_00022","category":"Injury & Clinical","canonical":"days_injury_to_rehab","nscisc_code":"AI2RhADa","description":"This variable documents the number of days from the Date of Injury to the\nfirst admission to the System's inpatient acute rehabilitation unit.","characters":"4","codes":"1-887 Days from injury to rehab admit (887 or more days)\n888 Not Applicable: Not admitted to System inpatient Rehab; or if\npatient expires during System acute Care; or if patient achieves complete\nrecovery or minimal deficit status during System med/surg acute care with\nat least 7 days hospitalization.","codes_list":[],"notes":"","pdf_page":"95","var_id":"127","include_values":"1-887,888"},{"id":"row_00023","category":"Injury & Clinical","canonical":"trauma_etiology","nscisc_code":"ATrmEtio","description":"This variable identifies the etiology of the trauma.\nTraumatic spinal cord injury is impairment of the spinal cord or cauda\nequine function resulting from the application of an external force of any\nmagnitude.","characters":"2","codes":"VEHICULAR\n1 Auto accident: includes jeep, truck, dune buggy, and bus\n2 Motorcycle accident: 2-wheeled, motorized vehicles including\nmopeds and motorized dirt bikes\n4 Boat\n5 Fixed-wing aircraft\n6 Rotating wing aircraft\n7 Snowmobile\n8 Bicycle (includes tricycles and unicycles)\n9 All-terrain vehicle (ATV) and all-terrain cycle (ATC) – include\nboth 3-wheeled and 4-wheeled vehicles\n3 Other vehicular, unclassified: includes tractor, bulldozer, go-\ncart, steamroller, train, road grader, forklift.\nThere is also other codes, reference page number","codes_list":[],"notes":"A bunch of codes for this","pdf_page":"105","var_id":"138","include_values":"1–12, 15, 20–31, 40, 50, 60, 70–78,99"},{"id":"row_00024","category":"Injury & Clinical","canonical":"associated_injuries_present","nscisc_code":"AAsscInj","description":"njuries resulting from the same traumatic event that caused the spinal\ncord injury.\nThis variable documents whether any of the pre-specified major\ninjuries occurred at the same time as the Spinal Cord Injury:\na.) moderate to severe Traumatic Brain Injury (Glascow Coma Scale\nScore of 12 or below)\nb.) non-vertebral fractures requiring surgery\nc.) severe facial injuries affecting sensory organs\nd.) major chest injury requiring chest-tube or mechanical\nventilation\ne.) traumatic amputations of an arm or leg, or injuries severe\nenough to require surgical amputation\nf.) severe hemorrhaging\ng.) damage to any internal organ requiring surgery","characters":"1","codes":"0=No; 1=Yes; 9=Unknown","codes_list":[],"notes":"","pdf_page":"109","var_id":"257","include_values":"0,1,9"},{"id":"row_00025","category":"Injury & Clinical","canonical":"vertebral_injury_present","nscisc_code":"AVertInj","description":"This variable documents whether there was a spinal fracture and/or\ndislocation in addition to the spinal cord injury.\nSpinal fracture or dislocation is defined as any break, rupture, or crack\nthrough or between any part(s) of the vertebral column from the\nocciput to the coccyx.","characters":"1","codes":"0=No; 1=Yes; 9=Unknown","codes_list":[],"notes":"","pdf_page":"108","var_id":"256","include_values":"0,1,9"},{"id":"row_00026","category":"Injury & Clinical","canonical":"spinal_surgery_performed","nscisc_code":"ASpinSrg","description":"Surgery performed on the spinal column and/or its contents.\nThis variable documents whether any of the following spinal surgical\nprocedures were performed at any point during the inpatient\nhospitalization period following spinal cord injury:\na.) laminectomy\nb.) neural canal restoration\nc.) open reduction\nd.) spinal fusion\ne.) internal fixation of the spine","characters":"1","codes":"0=No; 1=Yes; 9=Unknown","codes_list":[],"notes":"","pdf_page":"110","var_id":"267","include_values":"0,1,9"},{"id":"row_00027","category":"Injury & Clinical","canonical":"ventilation_at_admit","nscisc_code":"AUMVAdm","description":"This variable documents any use of any type of mechanical ventilation used to\nsustain respiration\n1) at admission to System inpatient rehab\n2) at System discharge","characters":"1","codes":"0 No\n1 Yes, limited, short-term use for pulmonary complications\n2 Yes, ventilator-dependent or ventilator use requiring a weaning process\n3 Yes, phrenic nerve stimulator\n4 Yes, used mechanical ventilation, length of time and type unknown This is\na CONVERSION CODE ONLY (code \"1\" prior to 10/86). Data collectors may NOT use this\ncode. This information is provided for data analyses purposes only.\n9 Unknown\nNo System rehab admission (Rehab Admit Only)","codes_list":[],"notes":"same as discharge","pdf_page":"113","var_id":"259","include_values":"0,1,2,3,4,9"},{"id":"row_00028","category":"Injury & Clinical","canonical":"ventilation_at_discharge","nscisc_code":"AUMVDis","description":"This variable documents any use of any type of mechanical ventilation used to\nsustain respiration\n1) at admission to System inpatient rehab\n2) at System discharge","characters":"1","codes":"0 No\n1 Yes, limited, short-term use for pulmonary complications\n2 Yes, ventilator-dependent or ventilator use requiring a weaning process\n3 Yes, phrenic nerve stimulator\n4 Yes, used mechanical ventilation, length of time and type unknown This is\na CONVERSION CODE ONLY (code \"1\" prior to 10/86). Data collectors may NOT use this\ncode. This information is provided for data analyses purposes only.\n9 Unknown\nNo System rehab admission (Rehab Admit Only)","codes_list":[],"notes":"same as admit","pdf_page":"113","var_id":"260","include_values":"0,1,2,3,4,9"},{"id":"row_00029","category":"Injury & Clinical","canonical":"bladder_management_discharge","nscisc_code":"ABdMMDis","description":"This variable defines the primary method of bladder management being\nused at discharge.","characters":"2","codes":"0 None: The patient has a neurogenic bladder but does not follow any\nestablished program of bladder management. This includes diapers,\npampers, etc.\n1 Indwelling urethral catheter: Bladder is emptied by any type of\ncatheter which is maintained through the urethra (i.e. Foley).\n2 Indwelling catheter after augmentation or continent diversion:\nBladder is emptied by any type of catheter which is maintained\nthrough the stoma.\nCatheter Free With External Collector\nThe patient voids satisfactorily using any method of reflex stimulation\nor any form of extrinsic pressure. However, an external collector is\nutilized to control incontinence (i.e. Texas Catheter, condom cath).\nUrinals and diapers are not external collectors.\n3 Catheter free with external collector, no sphincterotomy\n4 Catheter free with external collector and sphincterotomy\n5 Catheter free with external collector, sphincterotomy unknown\n6 Catheter free without external collector: The patient voids\nsatisfactorily using any method of reflex stimulation or any form of\nextrinsic pressure. An external collector is not required in that the\npatient has developed adequate continence.\nNSCISC: 3/2015 117\nFORM I: 29. Bladder Management\n(page 2 of 3)\nVARIABLE NAME: Method of Bladder Management\nCODES: Intermittent Catheterization Program (ICP): The patient empties the\nbladder by frequent insertion of a urethral catheter in an on-going program\nof chronic management. Intermittent catheterizations using this technique\nare done several times a day. This category does not pertain to infrequent\nperiodic catheterizations for the purpose of checking urinary residual.\n7 ICP only\n8 ICP with external collector (condom catheter)\n9 ICP after augmentation or continent diversion\n10 ICP – external collector, augmentation or continent diversion\nunknown\n11 Conduit: The bladder is drained by any of the surgical techniques\nusing various portions of the intestinal tract that are not categorized as\nbladder augmentation.\n12 Suprapubic Cystostomy: The bladder is drained by any of the\nsurgical techniques using a catheter through a suprapubic orifice (i.e.\nSP).\n13 Normal Micturition (old code 4): The patient voids satisfactorily\nwithout using reflex stimulation or extrinsic bladder pressure voiding\ntechniques. The bladder, however, may or may not have completely\nnormal function.\n14 Other: All other bladder drainage techniques such as\nureterocutaneostomy (pyelostomy), electro-stimulation, electro-\nmagnetic ball valve, detrusor stimulation, sacral implants, conus\nimplants, vesicostomy, ureteral catheterization, etc.\n99 Unknown","codes_list":[],"notes":"lengthy, see page ","pdf_page":"116","var_id":"258","include_values":"0-14,99"},{"id":"row_00030","category":"Functional (FIM)","canonical":"fim_motor_admit","nscisc_code":"AFScorRb","description":"This variable documents the total of the levels in FIM items A through M.\nThis variable is calculated by the NSCISC.","characters":"2","codes":"13–91 Valid Range; 99=Unknown","codes_list":[],"notes":"Same as discharge","pdf_page":"144","var_id":"282","include_values":"13-91,99"},{"id":"row_00031","category":"Functional (FIM)","canonical":"fim_motor_discharge","nscisc_code":"AFScorDs","description":"This variable documents the total of the levels in FIM items A through M.\nThis variable is calculated by the NSCISC.","characters":"2","codes":"13–91 Valid Range; 99=Unknown","codes_list":[],"notes":"same as admit","pdf_page":"144","var_id":"297","include_values":"13-91,99"},{"id":"row_00032","category":"Functional (FIM)","canonical":"fim_cognitive_admit","nscisc_code":"AFScogRb","description":"FIM cognitive score at rehab admission (5 items).","characters":"2","codes":"5–35; 99=Unknown","codes_list":[],"notes":"RESTRICTED","pdf_page":null,"var_id":"","include_values":""},{"id":"row_00033","category":"Functional (FIM)","canonical":"fim_cognitive_discharge","nscisc_code":"AFScogDs","description":"FIM cognitive score at discharge (5 items).","characters":"2","codes":"5–35; 99=Unknown","codes_list":[],"notes":"RESTRICTED","pdf_page":null,"var_id":"","include_values":""},{"id":"row_00034","category":"Functional (FIM)","canonical":"fim_total_admit","nscisc_code":"AFScTotR","description":"FIM total score at rehab admission (motor+cognitive).","characters":"3","codes":"18–126; 999=Unknown","codes_list":[],"notes":"RESTRICTED/derived","pdf_page":null,"var_id":"","include_values":""},{"id":"row_00035","category":"Functional (FIM)","canonical":"fim_total_discharge","nscisc_code":"AFScTotD","description":"FIM total score at discharge (motor+cognitive).","characters":"3","codes":"18–126; 999=Unknown","codes_list":[],"notes":"RESTRICTED/Derived.","pdf_page":null,"var_id":"","include_values":""},{"id":"row_00036","category":"Neurological (ISNCSCI)","canonical":"asia_motor_admit","nscisc_code":"AASATotA","description":"This variable documents the function of 10 paired myotomes (C5-T1 and\nL2-S1) (1) the individual scores for each key muscle, (2) the subtotal\nscores for the right and left sides and (3) the total ASIA Motor Index\nScores:\n1) at medical/surgical care examination (for day-1 admissions only)\n2) within 1 week of admit to inpatient rehabilitation (for rehab admit\npatients only)\n3) at discharge (for all patients)\nThis motor index score provides a numerical scoring system to document\nchanges in motor function.","characters":"3","codes":"Total 0 – 100 Valid range\n888 Not Testable, unable to test; infants; amputee; cast\n999 Unknown/Not Done\n999 No System rehab admission (for Rehab admit position only)\nBlank Allowed in Med/Surg admit position only for Non Day 1s.","codes_list":[],"notes":"same as discharge,, ","pdf_page":"148","var_id":"185","include_values":"0-100"},{"id":"row_00037","category":"Neurological (ISNCSCI)","canonical":"asia_motor_discharge","nscisc_code":"AASATotD","description":"This variable documents the function of 10 paired myotomes (C5-T1 and\nL2-S1) (1) the individual scores for each key muscle, (2) the subtotal\nscores for the right and left sides and (3) the total ASIA Motor Index\nScores:\n1) at medical/surgical care examination (for day-1 admissions only)\n2) within 1 week of admit to inpatient rehabilitation (for rehab admit\npatients only)\n3) at discharge (for all patients)\nThis motor index score provides a numerical scoring system to document\nchanges in motor function.","characters":"3","codes":"Total 0 – 100 Valid range\n888 Not Testable, unable to test; infants; amputee; cast\n999 Unknown/Not Done\n999 No System rehab admission (for Rehab admit position only)\nBlank Allowed in Med/Surg admit position only for Non Day 1s.","codes_list":[],"notes":"same as admit, since this is one of primary outcome, only included the valid ranges","pdf_page":"148","var_id":"231","include_values":"0-100"},{"id":"row_00038","category":"Neurological (ISNCSCI)","canonical":"asia_light_touch_admit","nscisc_code":"ALTTotRh","description":"These variables document sensation at a key point in each of the 28 dermatomes\n(from C2-S4/5) on the right and left sides of the body. At each of the key points,\ntwo aspects of sensation are examined: sensitivity to light touch (LT) and to pin\nprick (PP).\nSensory scores for light touch and pin prick at each of the key points are recorded\nat (1) Each Dermatome - the individual scores for each of the 28 key sensory\ndermatomes, (2) Subtotals of dermatome scores on the right and left for LT and\nPP, and (3) Totals of the Subtotal scores for LT and PP. Subtotals and Totals are\ncalculated by NSCISC software.\nSensory scores are recorded at two time points:\n1) within 1 week of admission to the inpatient rehabilitation\n2) at discharge","characters":"3","codes":"0-112 Valid range\n888 Not Testable, unable to test; infants; cast; amputee\n999 Unknown, Not Done\n999 No System rehab admission (for Rehab admit position only).","codes_list":[],"notes":"REDACTED","pdf_page":"150","var_id":"","include_values":"0-112"},{"id":"row_00039","category":"Neurological (ISNCSCI)","canonical":"asia_light_touch_discharge","nscisc_code":"ALTTotDs","description":"These variables document sensation at a key point in each of the 28 dermatomes\n(from C2-S4/5) on the right and left sides of the body. At each of the key points,\ntwo aspects of sensation are examined: sensitivity to light touch (LT) and to pin\nprick (PP).\nSensory scores for light touch and pin prick at each of the key points are recorded\nat (1) Each Dermatome - the individual scores for each of the 28 key sensory\ndermatomes, (2) Subtotals of dermatome scores on the right and left for LT and\nPP, and (3) Totals of the Subtotal scores for LT and PP. Subtotals and Totals are\ncalculated by NSCISC software.\nSensory scores are recorded at two time points:\n1) within 1 week of admission to the inpatient rehabilitation\n2) at discharge","characters":"3","codes":"0-112 Valid range\n888 Not Testable, unable to test; infants; cast; amputee\n999 Unknown, Not Done\n999 No System rehab admission (for Rehab admit position only).","codes_list":[],"notes":"REDACTED","pdf_page":"150","var_id":"","include_values":"0-112"},{"id":"row_00040","category":"Neurological (ISNCSCI)","canonical":"asia_pin_prick_admit","nscisc_code":"APPTotRh","description":"These variables document sensation at a key point in each of the 28 dermatomes\n(from C2-S4/5) on the right and left sides of the body. At each of the key points,\ntwo aspects of sensation are examined: sensitivity to light touch (LT) and to pin\nprick (PP).\nSensory scores for light touch and pin prick at each of the key points are recorded\nat (1) Each Dermatome - the individual scores for each of the 28 key sensory\ndermatomes, (2) Subtotals of dermatome scores on the right and left for LT and\nPP, and (3) Totals of the Subtotal scores for LT and PP. Subtotals and Totals are\ncalculated by NSCISC software.\nSensory scores are recorded at two time points:\n1) within 1 week of admission to the inpatient rehabilitation\n2) at discharge","characters":"3","codes":"0-112 Valid range\n888 Not Testable, unable to test; infants; cast; amputee\n999 Unknown, Not Done\n999 No System rehab admission (for Rehab admit position only).","codes_list":[],"notes":"REDACTED","pdf_page":"150","var_id":"","include_values":"0-112"},{"id":"row_00041","category":"Neurological (ISNCSCI)","canonical":"asia_pin_prick_discharge","nscisc_code":"APPTotDs","description":"These variables document sensation at a key point in each of the 28 dermatomes\n(from C2-S4/5) on the right and left sides of the body. At each of the key points,\ntwo aspects of sensation are examined: sensitivity to light touch (LT) and to pin\nprick (PP).\nSensory scores for light touch and pin prick at each of the key points are recorded\nat (1) Each Dermatome - the individual scores for each of the 28 key sensory\ndermatomes, (2) Subtotals of dermatome scores on the right and left for LT and\nPP, and (3) Totals of the Subtotal scores for LT and PP. Subtotals and Totals are\ncalculated by NSCISC software.\nSensory scores are recorded at two time points:\n1) within 1 week of admission to the inpatient rehabilitation\n2) at discharge","characters":"3","codes":"0-112 Valid range\n888 Not Testable, unable to test; infants; cast; amputee\n999 Unknown, Not Done\n999 No System rehab admission (for Rehab admit position only).","codes_list":[],"notes":"REDACTED","pdf_page":"150","var_id":"","include_values":"0-112"},{"id":"row_00042","category":"Neurological (ISNCSCI)","canonical":"ais_grade_admit","nscisc_code":"AASAImAd","description":"This variable attempts to quantify the degree of impairment\n1) at medical/surgical care unit examination (for day-1 admissions only)\n3) at discharge (for all patients)","characters":"1","codes":"A Complete Injury.\nNo sensory or motor function is preserved in the sacral segments S4-S5\n(must also be negative for anal sensation/contraction).\nB Incomplete.\nSensory but not motor function is preserved below the neurological level and\nincludes the sacral segments S4-S5 (or have anal sensation).\nC Incomplete.\nMotor function is preserved below the neurological level, and more than half\nof the key muscles below the neurological level have a muscle grade less\nthan 3 (grades 0-2).\nD Incomplete.\nMotor function is preserved below the neurological level, and at least half\nof key muscles below the neurological level have a muscle grade greater\nthan or equal to 3.\nE Normal.\nSensory and motor functions are normal.\nU Unknown/Not Done\nNot admitted to System inpatient Rehab (Rehab Admit Only)","codes_list":[],"notes":"possible outcome","pdf_page":"160","var_id":"160","include_values":"A,B,C,D,E,U"},{"id":"row_00043","category":"Neurological (ISNCSCI)","canonical":"ais_grade_discharge","nscisc_code":"AASAImDs","description":"This variable attempts to quantify the degree of impairment\n1) at medical/surgical care unit examination (for day-1 admissions only)\n3) at discharge (for all patients)","characters":"1","codes":"A Complete Injury.\nNo sensory or motor function is preserved in the sacral segments S4-S5\n(must also be negative for anal sensation/contraction).\nB Incomplete.\nSensory but not motor function is preserved below the neurological level and\nincludes the sacral segments S4-S5 (or have anal sensation).\nC Incomplete.\nMotor function is preserved below the neurological level, and more than half\nof the key muscles below the neurological level have a muscle grade less\nthan 3 (grades 0-2).\nD Incomplete.\nMotor function is preserved below the neurological level, and at least half\nof key muscles below the neurological level have a muscle grade greater\nthan or equal to 3.\nE Normal.\nSensory and motor functions are normal.\nU Unknown/Not Done\nNot admitted to System inpatient Rehab (Rehab Admit Only)","codes_list":[],"notes":"possible outcome","pdf_page":"160","var_id":"162","include_values":"A,B,C,D,E,U"},{"id":"row_00044","category":"Neurological (ISNCSCI)","canonical":"neurological_level_admit","nscisc_code":"ANurLvlA","description":"The most caudal segment of the spinal cord with normal sensory and antigravity\nmotor function on both sides of the body, provided there is normal (intact)\nsensory and motor function rostrally. This variable is created by comparing the\nRight and Left Preserved Neuro Level variables and returning the anatomically\nhigher of the two variables. This variable is calculated by the NSCISC and is for\ndata analysis purposes.\n1) at medical/surgical care unit examination (for day-1 admissions only)\n3) at discharge (for all patients)","characters":"2","codes":"C01-C08 Cervical\nT01-T12 Thoracic\nL01-L05 Lumbar\nS01-S03 Sacral\nS04, S05, S45 Not valid after August 2013\nX00 Normal neurologic (INT)\nC99 Cervical, Unknown Level\nT99 Thoracic, Unknown Level\nL99 Lumbar, Unknown Level\nS99 Sacral, Unknown Level\nX99 Unknown, Not Done\nX99 No System rehab admission\nBlank (at Initial System Exam if Non day-1 admit)","codes_list":[],"notes":"Categorical (spinal levels).","pdf_page":"156","var_id":"1408","include_values":"C01-C08,T01-T12,L01-L05,S01-S05,S45,X00,C99,T99,L99,S99,X99,X99,Blank"},{"id":"row_00045","category":"Neurological (ISNCSCI)","canonical":"neurological_level_discharge","nscisc_code":"ANurLvlD","description":"The most caudal segment of the spinal cord with normal sensory and antigravity\nmotor function on both sides of the body, provided there is normal (intact)\nsensory and motor function rostrally. This variable is created by comparing the\nRight and Left Preserved Neuro Level variables and returning the anatomically\nhigher of the two variables. This variable is calculated by the NSCISC and is for\ndata analysis purposes.\n1) at medical/surgical care unit examination (for day-1 admissions only)\n3) at discharge (for all patients)","characters":"2","codes":"C01-C08 Cervical\nT01-T12 Thoracic\nL01-L05 Lumbar\nS01-S03 Sacral\nS04, S05, S45 Not valid after August 2013\nX00 Normal neurologic (INT)\nC99 Cervical, Unknown Level\nT99 Thoracic, Unknown Level\nL99 Lumbar, Unknown Level\nS99 Sacral, Unknown Level\nX99 Unknown, Not Done\nX99 No System rehab admission\nBlank (at Initial System Exam if Non day-1 admit)","codes_list":[],"notes":"Categorical (spinal levels).","pdf_page":"156","var_id":"1410","include_values":"C01-C08,T01-T12,L01-L05,S01-S05,S45,X00,C99,T99,L99,S99,X99,X99,Blank"},{"id":"row_00046","category":"Follow-up (Rehospitalization)","canonical":"rehosp_count","nscisc_code":"BRhspNbr","description":"This variable documents the number of planned and unplanned, system\nand non-system hospital admissions occurring during the previous 12\nmonths with respect to the date of the interview.","characters":"2","codes":"0 None\n1 One\n2 Two\n3 Three\n4 Four\n5 Five\n6 Six\n7 More than six\n8 Rehospitalized, number unknown This is a CONVERSION CODE ONLY.\nData collectors may NOT use this code. This information is provided for data analyses\npurposes only\n9 Unknown\nBlank (only if Category of Care = \"5\")","codes_list":[],"notes":"","pdf_page":"259","var_id":"345","include_values":"0-9,Blank"},{"id":"row_00047","category":"Follow-up (Rehospitalization)","canonical":"rehosp_total_days","nscisc_code":"BRhspDaT","description":"This variable records the total days rehospitalized (planned and unplanned\ndays) in all hospitals (i.e., system and non-system) during the previous\n12 months (if Year 1 since discharge) with respect to the date of the\ninterview.\nThis variable is calculated by the NSCISC's software.","characters":"3","codes":"0 None\n1 - 887 Valid range\n888 Yes, number of days unknown\n999 Unknown\nBlank (only if Category of Care = \"5\")","codes_list":[],"notes":"","pdf_page":"260","var_id":"346","include_values":"0-887,888,999,Blank"},{"id":"row_00048","category":"Follow-up (Rehospitalization)","canonical":"rehosp_reason_1","nscisc_code":"BRhspRs1","description":"This variable documents the reason for rehospitalization for up to 8\nrehospitalizations. Document all reasons for rehospitalizations in all\nhospitals (i.e., system and non-system) that occurred during the previous\n12 months with respect to the date of the interview\nDo not record any reasons for custodial admissions (i.e. nursing home\nstays) in this variable.\nIf 8 or more rehospitalizations occur, report the primary reason for the\nlongest of the rehospitalizations over #7 in coding position #8.","characters":"2","codes":"01\tInfectious / parasitic diseases (AIDS etc.)\n02\tCancer / neoplasms\n03\tEndocrine / metabolic / immunity disorders\n04\tBlood & hematologic diseases\n05\tMental disorders incl. alcohol / drug issues\n06\tNervous system & sense organ diseases\n07\tCirculatory diseases (heart, HTN, stroke, PE, etc.)\n08\tRespiratory diseases\n09\tDigestive diseases (GI, liver, gallbladder)\n10\tGenitourinary diseases (kidney, bladder, prostate, pelvic)\n11\tPregnancy / childbirth complications\n12\tSkin & subcutaneous diseases (incl. pressure sores)\n13\tMusculoskeletal diseases (arthritis, spine, bone, deformities)\n14\tCongenital anomalies\n15\tSymptoms / ill-defined conditions\n16\tInjuries & poisoning (accidents, surgical complications, trauma)\n17\tOther unclassified (e.g., baclofen pump)\n18\tInpatient rehab services only\n88\tNot applicable – no rehospitalizations (valid only in 1st position)\n99\tUnknown\nBlank\tOnly if Category of Care = \"5\"","codes_list":[],"notes":"previous study, this is abridged version see page","pdf_page":"257","var_id":"330","include_values":"01-18,88,99,Blank"},{"id":"row_00049","category":"Follow-up (Rehospitalization)","canonical":"rehosp_reason_2","nscisc_code":"BRhspRs2","description":"This variable documents the reason for rehospitalization for up to 8\nrehospitalizations. Document all reasons for rehospitalizations in all\nhospitals (i.e., system and non-system) that occurred during the previous\n12 months with respect to the date of the interview\nDo not record any reasons for custodial admissions (i.e. nursing home\nstays) in this variable.\nIf 8 or more rehospitalizations occur, report the primary reason for the\nlongest of the rehospitalizations over #7 in coding position #8.","characters":"2","codes":"01\tInfectious / parasitic diseases (AIDS etc.)\n02\tCancer / neoplasms\n03\tEndocrine / metabolic / immunity disorders\n04\tBlood & hematologic diseases\n05\tMental disorders incl. alcohol / drug issues\n06\tNervous system & sense organ diseases\n07\tCirculatory diseases (heart, HTN, stroke, PE, etc.)\n08\tRespiratory diseases\n09\tDigestive diseases (GI, liver, gallbladder)\n10\tGenitourinary diseases (kidney, bladder, prostate, pelvic)\n11\tPregnancy / childbirth complications\n12\tSkin & subcutaneous diseases (incl. pressure sores)\n13\tMusculoskeletal diseases (arthritis, spine, bone, deformities)\n14\tCongenital anomalies\n15\tSymptoms / ill-defined conditions\n16\tInjuries & poisoning (accidents, surgical complications, trauma)\n17\tOther unclassified (e.g., baclofen pump)\n18\tInpatient rehab services only\n88\tNot applicable – no rehospitalizations (valid only in 1st position)\n99\tUnknown\nBlank\tOnly if Category of Care = \"5\"","codes_list":[],"notes":"previous study, this is abridged version see page","pdf_page":"257","var_id":"332","include_values":"01-18,88,99,Blank"},{"id":"row_00050","category":"Follow-up (Rehospitalization)","canonical":"rehosp_reason_3","nscisc_code":"BRhspRs3","description":"This variable documents the reason for rehospitalization for up to 8\nrehospitalizations. Document all reasons for rehospitalizations in all\nhospitals (i.e., system and non-system) that occurred during the previous\n12 months with respect to the date of the interview\nDo not record any reasons for custodial admissions (i.e. nursing home\nstays) in this variable.\nIf 8 or more rehospitalizations occur, report the primary reason for the\nlongest of the rehospitalizations over #7 in coding position #8.","characters":"2","codes":"01\tInfectious / parasitic diseases (AIDS etc.)\n02\tCancer / neoplasms\n03\tEndocrine / metabolic / immunity disorders\n04\tBlood & hematologic diseases\n05\tMental disorders incl. alcohol / drug issues\n06\tNervous system & sense organ diseases\n07\tCirculatory diseases (heart, HTN, stroke, PE, etc.)\n08\tRespiratory diseases\n09\tDigestive diseases (GI, liver, gallbladder)\n10\tGenitourinary diseases (kidney, bladder, prostate, pelvic)\n11\tPregnancy / childbirth complications\n12\tSkin & subcutaneous diseases (incl. pressure sores)\n13\tMusculoskeletal diseases (arthritis, spine, bone, deformities)\n14\tCongenital anomalies\n15\tSymptoms / ill-defined conditions\n16\tInjuries & poisoning (accidents, surgical complications, trauma)\n17\tOther unclassified (e.g., baclofen pump)\n18\tInpatient rehab services only\n88\tNot applicable – no rehospitalizations (valid only in 1st position)\n99\tUnknown\nBlank\tOnly if Category of Care = \"5\"","codes_list":[],"notes":"previous study, this is abridged version see page","pdf_page":"257","var_id":"334","include_values":"01-18,88,99,Blank"}];
+
+  const state = { q:"", category:"", sortKey:"category", sortDir:1, edit:false, selected: new Set() };
+  const els = {
+    search: document.getElementById('search'),
+    category: document.getElementById('category'),
+    addRow: document.getElementById('addRow'),
+    insertBelowSelected: document.getElementById('insertBelowSelected'),
+    exportJson: document.getElementById('exportJson'),
+    exportCsv: document.getElementById('exportCsv'),
+    loadJson: document.getElementById('loadJson'),
+    editMode: document.getElementById('editMode'),
+    tbody: document.querySelector('#tbl tbody'),
+    count: document.getElementById('count'),
+    headers: Array.from(document.querySelectorAll('th[data-key]'))
+  };
+
+  function getCategoryClass(cat) {
+    if (cat.includes('Medical')) return 'medical';
+    if (cat.includes('Injury') || cat.includes('Clinical')) return 'injury';
+    if (cat.includes('Functional')) return 'functional';
+    if (cat.includes('Neurological')) return 'neurological';
+    if (cat.includes('Follow-up')) return 'followup';
+    return '';
+  }
+
+  function uniq(arr){ return Array.from(new Set(arr)); }
+  function fillCategory(){
+    const cats = ["", ...uniq(DATA.map(d=>d.category || ""))];
+    els.category.innerHTML = cats.map(c=>`<option value="${c}">${c||"All categories"}</option>`).join('');
+  }
+
+  function normalize(s){ return (s ?? "").toString().toLowerCase(); }
+  function matches(d){
+    const q = normalize(state.q);
+    if (state.category && d.category !== state.category) return false;
+    if (!q) return true;
+    const blob = normalize([
+      d.category,d.var_id,d.canonical,d.nscisc_code,d.description,d.characters,d.codes,(d.codes_list||[]).join(' '),
+      d.include_values,d.notes,d.pdf_page
+    ].join(' '));
+    return blob.includes(q);
+  }
+
+  function rowInput(name, value, isArea=false){
+    if (!state.edit) return `<div>${value ?? ""}</div>`;
+    if (name === "codes_list") {
+      const text = (value||[]).join('\n');
+      return `<textarea data-name="codes_list">${text}</textarea>`;
+    }
+    const val = value ?? "";
+    return isArea
+      ? `<textarea data-name="${name}">${val}</textarea>`
+      : `<div contenteditable="true" data-name="${name}">${val}</div>`;
+  }
+
+  function render(){
+    const filtered = DATA.filter(matches);
+    const rows = filtered.sort((a,b)=>{
+      const ka = (a[state.sortKey] ?? "").toString().toLowerCase();
+      const kb = (b[state.sortKey] ?? "").toString().toLowerCase();
+      if (ka < kb) return -1*state.sortDir;
+      if (ka > kb) return 1*state.sortDir;
+      return 0;
+    }).map((d)=>{
+      const codesListView = state.edit
+        ? rowInput("codes_list", d.codes_list, true)
+        : (d.codes_list && d.codes_list.length
+           ? `<ul>` + d.codes_list.map(x=>`<li>${x}</li>`).join('') + `</ul>`
+           : `<span class="muted">—</span>`);
+      const actions = state.edit
+        ? `<div class="row-actions">
+             <button data-act="ins">Insert below</button>
+             <button data-act="dup">Duplicate</button>
+             <button data-act="del">Delete</button>
+           </div>`
+        : `<span class="muted">—</span>`;
+      const checked = state.selected.has(d.id) ? 'checked' : '';
+      const catClass = getCategoryClass(d.category);
+      return `<tr data-id="${d.id}">
+        <td class="sel-col"><input type="checkbox" class="sel" ${checked}/></td>
+        <td><span class="tag ${catClass}">${d.category}</span></td>
+        <td>${rowInput("var_id", d.var_id)}</td>
+        <td>${rowInput("canonical", d.canonical)}</td>
+        <td>${rowInput("nscisc_code", d.nscisc_code)}</td>
+        <td>${rowInput("description", d.description, true)}</td>
+        <td class="nowrap">${rowInput("characters", d.characters)}</td>
+        <td>${rowInput("codes", d.codes, true)}</td>
+        <td>${codesListView}</td>
+        <td>${rowInput("include_values", d.include_values, true)}</td>
+        <td>${rowInput("notes", d.notes, true)}</td>
+        <td class="nowrap">${rowInput("pdf_page", d.pdf_page)}</td>
+        <td>${actions}</td>
+      </tr>`;
+    }).join('');
+    els.tbody.innerHTML = rows || `<tr><td colspan="13">No results found.</td></tr>`;
+    els.count.textContent = `Showing ${filtered.length} of ${DATA.length} variables`;
+  }
+
+  // Event handlers
+  els.search.addEventListener('input', e=>{ state.q = e.target.value; render(); });
+  els.category.addEventListener('change', e=>{ state.category = e.target.value; render(); });
+  els.headers.forEach(h=>h.addEventListener('click', ()=>{ 
+    const key = h.getAttribute('data-key'); if (!key) return;
+    if (state.sortKey === key) state.sortDir *= -1; else { state.sortKey = key; state.sortDir = 1; }
+    render(); 
+  }));
+  els.editMode.addEventListener('change', e=>{ state.edit = !!e.target.checked; render(); });
+
+  els.addRow.addEventListener('click', ()=>{ 
+    DATA.push({
+      id: `row_${String(Math.random()).slice(2)}`,
+      category:"", var_id:"", canonical:"", nscisc_code:"", description:"", characters:"",
+      codes:"", codes_list:[], include_values:"", notes:"", pdf_page:""
+    });
+    fillCategory(); render(); 
+  });
+
+  els.insertBelowSelected.addEventListener('click', ()=>{
+    const ids = Array.from(state.selected);
+    if (ids.length === 0) return alert('Select a row first (Sel checkbox).');
+    const order = DATA.map(r=>r.id);
+    const chosen = ids.sort((a,b)=> order.indexOf(a) - order.indexOf(b))[0];
+    const idx = order.indexOf(chosen);
+    const base = DATA[idx];
+    const blank = {
+      id: `row_${String(Math.random()).slice(2)}`,
+      category: base.category, var_id:"", canonical:"", nscisc_code:"", description:"", characters:"",
+      codes:"", codes_list:[], include_values:"", notes:"", pdf_page: base.pdf_page || ""
+    };
+    DATA.splice(idx+1, 0, blank);
+    render();
+  });
+
+  // delegate selection and row actions
+  document.getElementById('tbl').addEventListener('change', e=>{
+    if (!e.target.classList.contains('sel')) return;
+    const tr = e.target.closest('tr'); if (!tr) return;
+    const id = tr.getAttribute('data-id');
+    if (e.target.checked) state.selected.add(id); else state.selected.delete(id);
+  });
+
+  document.getElementById('tbl').addEventListener('click', e=>{
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const tr = e.target.closest('tr'); if (!tr) return;
+    const id = tr.getAttribute('data-id');
+    const idx = DATA.findIndex(r=>r.id===id);
+    if (idx < 0) return;
+    if (btn.dataset.act === 'del') { DATA.splice(idx,1); state.selected.delete(id); render(); fillCategory(); }
+    if (btn.dataset.act === 'dup') { const clone = JSON.parse(JSON.stringify(DATA[idx])); clone.id = `row_${String(Math.random()).slice(2)}`; DATA.splice(idx+1,0,clone); render(); }
+    if (btn.dataset.act === 'ins') { 
+      const base = DATA[idx];
+      const blank = {
+        id: `row_${String(Math.random()).slice(2)}`,
+        category: base.category, var_id:"", canonical:"", nscisc_code:"", description:"", characters:"",
+        codes:"", codes_list:[], include_values:"", notes:"", pdf_page: base.pdf_page || ""
+      };
+      DATA.splice(idx+1, 0, blank);
+      render();
+    }
+  });
+
+  // persist edits
+  els.tbody.addEventListener('focusout', e=>{
+    if (!state.edit) return;
+    const el = e.target;
+    const tr = el.closest('tr'); if (!tr) return;
+    const id = tr.getAttribute('data-id');
+    const idx = DATA.findIndex(r=>r.id===id); if (idx < 0) return;
+    const name = el.getAttribute('data-name'); if (!name) return;
+    if (name === 'codes_list') {
+      const lines = el.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+      DATA[idx][name] = lines;
+    } else {
+      const val = el.value !== undefined ? el.value : el.textContent;
+      DATA[idx][name] = val;
+    }
+  });
+
+  // export / import
+  function download(filename, content, mime){
+    const blob = new Blob([content], {type: mime || 'application/octet-stream'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 0);
+  }
+
+  document.getElementById('exportJson').addEventListener('click', ()=>{
+    download('nscisc_dictionary_v8_export.json', JSON.stringify(DATA, null, 2), 'application/json;charset=utf-8;');
+  });
+
+  document.getElementById('exportCsv').addEventListener('click', ()=>{
+    const cols = ["category","var_id","canonical","nscisc_code","description","characters","codes","codes_list","include_values","notes","pdf_page"];
+    const esc = s => '"' + (s ?? '').toString().replace(/"/g, '""') + '"';
+    const body = DATA.map(r => cols.map(c => c==="codes_list" ? esc((r[c]||[]).join(' | ')) : esc(r[c])).join(',')).join('\n');
+    const head = cols.join(',');
+    download('nscisc_dictionary_v8_export.csv', head + '\n' + body, 'text/csv;charset=utf-8;');
+  });
+
+  document.getElementById('loadJson').addEventListener('change', e=>{
+    const file = e.target.files && e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        if (!Array.isArray(parsed)) throw new Error('JSON must be an array of rows');
+        DATA = parsed; fillCategory(); render();
+      } catch (err) { alert('Failed to parse JSON: ' + err.message); }
+    };
+    reader.readAsText(file);
+  });
+
+  function init(){ fillCategory(); render(); }
+  init();
+</script>
+</body>
+</html>
+

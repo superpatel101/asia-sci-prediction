@@ -1,0 +1,14 @@
+{
+  "Model 2 - Impairment Classification": {
+    "Per-Class AUC": {
+      "Grade A": 0.8946416526538795,
+      "Grade B": 0.8551887372433298,
+      "Grade C": 0.9527991608368229,
+      "Grade D": 0.9073339703774487,
+      "Grade E": 0.963034830483406
+    },
+    "Micro-Average AUC": 0.960429424557647,
+    "Macro-Average AUC": 0.9145996703189774,
+    "Weighted-Average AUC": 0.9417139576057095
+  }
+}

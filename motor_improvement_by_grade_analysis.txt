@@ -1,0 +1,183 @@
+
+================================================================================
+ASIA MOTOR SCORE IMPROVEMENT BY IMPAIRMENT GRADE
+================================================================================
+
+Total Patients Analyzed: 6,323
+
+OVERALL STATISTICS:
+  • Mean Admission:  44.1 ± 25.6
+  • Mean Discharge:  54.8 ± 27.5
+  • Mean Change:     10.7 ± 16.0
+  
+  • 4,062 (64.2%) improved
+  • 1,840 (29.1%) unchanged
+  • 421 (6.7%) declined
+
+================================================================================
+DETAILED ANALYSIS BY ADMISSION GRADE
+================================================================================
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ GRADE A: Complete                                                     │
+│ n = 3,122 patients                                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Admission Motor Score:
+  Mean:    34.7 ± 21.0
+  Median:  50.0
+  Range:  0 to 100
+
+Discharge Motor Score:
+  Mean:    38.5 ± 20.7
+  Median:  50.0
+  Range:  0 to 100
+
+Motor Score Improvement:
+  Mean:     +3.8 ±  9.3 points
+  Median:   +0.0 points
+  IQR:     +0.0 to  +5.0 points
+  Range:  -47 to +87 points
+
+Outcomes:
+  •  43.3% improved
+  •  50.1% unchanged  
+  •   6.6% declined
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ GRADE B: Sensory Incomplete                                           │
+│ n = 841 patients                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Admission Motor Score:
+  Mean:    34.0 ± 22.0
+  Median:  38.0
+  Range:  0 to 100
+
+Discharge Motor Score:
+  Mean:    48.9 ± 23.9
+  Median:  50.0
+  Range:  0 to 100
+
+Motor Score Improvement:
+  Mean:    +14.9 ± 18.8 points
+  Median:   +8.0 points
+  IQR:     +2.0 to +22.0 points
+  Range:  -41 to +90 points
+
+Outcomes:
+  •  78.8% improved
+  •  16.6% unchanged  
+  •   4.5% declined
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ GRADE C: Motor Incomplete <50%                                        │
+│ n = 1,051 patients                                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Admission Motor Score:
+  Mean:    41.5 ± 20.2
+  Median:  42.0
+  Range:  0 to 100
+
+Discharge Motor Score:
+  Mean:    67.2 ± 19.8
+  Median:  71.0
+  Range:  3 to 100
+
+Motor Score Improvement:
+  Mean:    +25.6 ± 20.1 points
+  Median:  +23.0 points
+  IQR:    +10.0 to +40.0 points
+  Range:  -56 to +90 points
+
+Outcomes:
+  •  91.4% improved
+  •   4.1% unchanged  
+  •   4.5% declined
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ GRADE D: Motor Incomplete ≥50%                                        │
+│ n = 1,309 patients                                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Admission Motor Score:
+  Mean:    75.1 ± 15.1
+  Median:  77.0
+  Range:  30 to 100
+
+Discharge Motor Score:
+  Mean:    87.4 ± 10.8
+  Median:  90.0
+  Range:  13 to 100
+
+Motor Score Improvement:
+  Mean:    +12.3 ± 12.9 points
+  Median:  +11.0 points
+  IQR:     +3.0 to +20.0 points
+  Range:  -68 to +63 points
+
+Outcomes:
+  •  82.9% improved
+  •   7.1% unchanged  
+  •  10.0% declined
+
+================================================================================
+KEY FINDINGS: MOTOR RECOVERY BY IMPAIRMENT GRADE
+================================================================================
+
+1. MOTOR IMPROVEMENT RANKING (Best to Worst):
+   1. Grade C (Motor Incomplete <50%): +25.6 ± 20.1 points
+   2. Grade B (Sensory Incomplete): +14.9 ± 18.8 points
+   3. Grade D (Motor Incomplete ≥50%): +12.3 ± 12.9 points
+   4. Grade A (Complete): +3.8 ± 9.3 points
+
+2. PERCENTAGE WHO IMPROVE (Best to Worst):
+   1. Grade C (Motor Incomplete <50%): 91.4%
+   2. Grade D (Motor Incomplete ≥50%): 82.9%
+   3. Grade B (Sensory Incomplete): 78.8%
+   4. Grade A (Complete): 43.3%
+
+3. CLINICAL INTERPRETATION:
+
+   • GRADE C (Motor Incomplete <50%): BEST MOTOR RECOVERY
+     - Shows the greatest average motor point improvement
+     - These patients have significant motor recovery potential
+     - Should be prioritized for intensive motor rehabilitation
+     
+   • GRADE B (Sensory Incomplete): STRONG RECOVERY
+     - Second-best motor recovery
+     - High percentage show improvement
+     - Transition from sensory-only to motor function is common
+     
+   • GRADE D (Motor Incomplete ≥50%): GOOD RECOVERY
+     - Already start with high motor scores
+     - Still show substantial improvement
+     - Many achieve near-normal function
+     
+   • GRADE A (Complete): LIMITED MOTOR RECOVERY
+     - Smallest average improvement in motor points
+     - Lower percentage show improvement
+     - Improvements tend to be modest but can be functionally important
+     
+   • GRADE E (Normal): Special case
+     - Detailed analysis needed depending on presence in admission data
+
+4. CLINICAL IMPLICATIONS:
+
+   ✓ Grade at admission is BOTH prognostic AND predictive
+   ✓ Incomplete injuries (B, C, D) have excellent motor recovery potential
+   ✓ Complete injuries (A) should focus on adaptation + assistive technology
+   ✓ Grade C represents the "sweet spot" for motor rehabilitation investment
+   ✓ Even Grade A patients can show meaningful improvements
+
+5. RESEARCH IMPLICATIONS:
+
+   • Motor score improvement varies significantly by grade
+   • Grade should be included as covariate in motor recovery studies
+   • Intervention studies should stratify by grade
+   • "Responder" definitions may need to be grade-specific
+
+================================================================================
+Generated: 2025-10-16 20:51:25
+================================================================================

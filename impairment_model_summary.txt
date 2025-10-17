@@ -1,0 +1,87 @@
+
+RANDOM FOREST CLASSIFIER - ASIA IMPAIRMENT PREDICTION
+============================================================
+
+DATASET INFORMATION:
+- Total samples: 15053
+- Features: 26
+- Target variable: AASAImDs (ASIA Impairment at Discharge)
+- Training samples: 12042
+- Test samples: 3011
+- Number of classes: 5
+- Classes: ['1 (Grade A)', '2 (Grade B)', '3 (Grade C)', '4 (Grade D)', '5 (Grade E)']
+
+CLASS DISTRIBUTION:
+AASAImDs
+1    1558
+2    1502
+3    4557
+4     105
+5    7331
+
+MODEL PARAMETERS:
+- Algorithm: Random Forest Classifier
+- Number of trees: 200
+- Max depth: 20
+- Min samples split: 5
+- Min samples leaf: 2
+- Max features: sqrt
+- Class weight: balanced
+
+PERFORMANCE METRICS:
+Training Set:
+  - Accuracy: 0.9351
+  - F1-Score (Macro): 0.8973
+  - F1-Score (Weighted): 0.9356
+
+Test Set:
+  - Accuracy: 0.8260
+  - F1-Score (Macro): 0.6589
+  - F1-Score (Weighted): 0.8234
+  - Precision: 0.8268
+  - Recall: 0.8260
+  - AUC (Weighted): 0.9417
+
+Cross-Validation:
+  - Mean Accuracy: 0.8344 (+/- 0.0069)
+
+CONFUSION MATRIX (Test Set):
+[[ 224   12    5    0   71]
+ [  48  139   65    1   47]
+ [  79  101  684   15   33]
+ [   3    1    8    9    0]
+ [  12   13   10    0 1431]]
+
+TOP 10 MOST IMPORTANT FEATURES:
+ feature  importance
+AASAImAd    0.382654
+AI2RhADa    0.141753
+ AUMVAdm    0.074731
+ANurLvlA    0.074393
+ AInjAge    0.072047
+ATrmEtio    0.042544
+AASATotA    0.038078
+AEducLvl    0.034068
+APrimPay    0.022719
+AMarStIj    0.022558
+
+FILES GENERATED:
+1. random_forest_impairment_classifier.pkl - Trained classifier
+2. impairment_imputer.pkl - Data imputer for preprocessing
+3. impairment_feature_names.pkl - List of feature names
+4. impairment_feature_importance.csv - Complete feature importance rankings
+5. impairment_confusion_matrix.png - Confusion matrix heatmap
+6. impairment_feature_importance.png - Feature importance visualization
+7. impairment_class_distributions.png - Class distribution comparison
+8. impairment_per_class_performance.png - Per-class metrics
+9. impairment_model_summary.txt - This summary report
+
+MODEL INTERPRETATION:
+- Accuracy indicates overall correct classification rate
+- F1-Score balances precision and recall
+- Macro F1 treats all classes equally
+- Weighted F1 accounts for class imbalance
+- Feature importance shows which variables most influence predictions
+
+============================================================
+Generated on: 2025-10-15 05:32:54

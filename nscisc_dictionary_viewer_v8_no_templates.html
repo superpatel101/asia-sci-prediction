@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>NSCISC Dictionary (v8) — No Templates, Var ID Editable</title>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; margin: 24px; }
+  h1 { margin-bottom: 0; }
+  .sub { color:#666; margin:6px 0 16px; }
+  .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+  input[type="text"], select { padding:8px 10px; border:1px solid #ccc; border-radius:8px; min-width:220px; }
+  button { padding:8px 12px; border:1px solid #ccc; background:#f7f7f7; border-radius:8px; cursor:pointer; }
+  button:hover { background:#eee; }
+  table { width:100%; border-collapse:collapse; margin-top:8px; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid #eee; vertical-align:top; }
+  th { background:#fafafa; position:sticky; top:0; z-index:1; cursor:pointer; }
+  .tag { display:inline-block; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; font-size:12px; }
+  .nowrap { white-space:nowrap; }
+  .count { color:#666; font-size:13px; }
+  .row-actions { display:flex; gap:6px; }
+  textarea { width:100%; min-height:70px; }
+  .muted { color:#666; }
+  .sel-col { width: 36px; text-align: center; }
+</style>
+</head>
+<body>
+  <h1>NSCISC Dictionary (v8)</h1>
+  <div class="sub">Variable ID is fully editable. Template dropdown removed. Keep using Edit mode, Add row, Insert below, Duplicate/Delete, and JSON/CSV export.</div>
+
+  <div class="controls">
+    <input id="search" type="text" placeholder="Search…"/>
+    <select id="category">
+      <option value="">All categories</option>
+    </select>
+    <button id="addRow">Add row</button>
+    <button id="insertBelowSelected">Insert below selected</button>
+    <button id="exportJson">Export JSON</button>
+    <button id="exportCsv">Export CSV</button>
+    <label style="margin-left:auto"><input type="checkbox" id="editMode"/> Edit mode</label>
+    <label>Load JSON <input type="file" id="loadJson" accept=".json"/></label>
+  </div>
+  <div class="count" id="count"></div>
+
+  <table id="tbl">
+    <thead>
+      <tr>
+        <th class="sel-col">Sel</th>
+        <th data-key="category">Category</th>
+        <th data-key="var_id">Variable ID</th>
+        <th data-key="canonical">Variable (Canonical)</th>
+        <th data-key="nscisc_code">NSCISC Code</th>
+        <th data-key="description">Description</th>
+        <th data-key="characters" class="nowrap">Chars</th>
+        <th data-key="codes">Codes / Values (summary)</th>
+        <th>Codes List (expanded)</th>
+        <th data-key="include_values">Included Values / Range</th>
+        <th data-key="notes">Notes</th>
+        <th data-key="pdf_page" class="nowrap">Page</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+<script>
+  let DATA = [{"id": "row_00001", "category": "Sociodemographic", "canonical": "age_years", "nscisc_code": "AInjAge", "description": "Age at time of injury (years).", "characters": "3", "codes": "0–120 valid; 999=Unknown", "codes_list": [], "notes": "Integer; derived from DOB and injury date.", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00002", "category": "Sociodemographic", "canonical": "sex", "nscisc_code": "ASex", "description": "Sex of patient.", "characters": "1", "codes": "1=Male; 2=Female; 3=Other/Transgender; 9=Unknown", "codes_list": [], "notes": "Code 3 added in 2011.", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00003", "category": "Sociodemographic", "canonical": "race", "nscisc_code": "ARace", "description": "Race of patient.", "characters": "1", "codes": "1=White; 2=Black; 3=American Indian/Alaska Native; 4=Asian; 5=Native Hawaiian/Pacific Islander; 6=Other; 9=Unknown", "codes_list": [], "notes": "Use with AHispnic for ethnicity.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00004", "category": "Sociodemographic", "canonical": "ethnicity_hispanic", "nscisc_code": "AHispnic", "description": "Hispanic or Latino origin.", "characters": "1", "codes": "1=Yes; 2=No; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00005", "category": "Sociodemographic", "canonical": "marital_status_at_injury", "nscisc_code": "AMarStIj", "description": "Marital status at time of injury.", "characters": "1", "codes": "1=Single; 2=Married; 3=Divorced/Separated; 4=Widowed; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00006", "category": "Sociodemographic", "canonical": "education_level", "nscisc_code": "AEducLvl", "description": "Highest educational level completed.", "characters": "1", "codes": "1=None; 2=Elementary; 3=High school/GED; 4=Some college; 5=College graduate; 6=Graduate/Professional; 9=Unknown", "codes_list": [], "notes": "Ordinal categorical.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00007", "category": "Sociodemographic", "canonical": "primary_status_preinjury", "nscisc_code": "APrLvlSt", "description": "Primary occupational/educational status prior to injury.", "characters": "2", "codes": "01=Employed FT; 02=Employed PT; 03=Unemployed seeking; 04=Unemployed not seeking; 05=Student; 06=Homemaker; 07=Retired; 08=Disabled; 09=Institutionalized; 99=Unknown", "codes_list": [], "notes": "", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00008", "category": "Sociodemographic", "canonical": "family_income_level", "nscisc_code": "AFmIncLv", "description": "Estimated annual family income prior to injury.", "characters": "1", "codes": "1=<20k; 2=20–49k; 3=50–99k; 4=≥100k; 9=Unknown", "codes_list": [], "notes": "Ordinal.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00009", "category": "Sociodemographic", "canonical": "primary_insurance", "nscisc_code": "APrimPay", "description": "Primary payer/insurance at rehab admission.", "characters": "1", "codes": "1=Private; 2=Medicare; 3=Medicaid; 4=Workers’ comp; 5=VA; 6=Self-pay/None; 7=Other government; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00010", "category": "Sociodemographic", "canonical": "residence_at_injury", "nscisc_code": "APResInj", "description": "Place of residence at time of injury.", "characters": "2", "codes": "01=Private; 02=Hospital; 03=Nursing home; 04=Group living; 05=Correctional; 06=Hotel/motel; 08=Other; 09=Homeless; 10=Assisted living; 99=Unknown", "codes_list": [], "notes": "", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00011", "category": "Sociodemographic", "canonical": "residence_at_discharge", "nscisc_code": "APResDis", "description": "Place of residence at discharge.", "characters": "2", "codes": "01=Private; 02=Hospital; 03=Nursing home; 04=Group living; 05=Correctional; 06=Hotel/motel; 07=Deceased; 08=Other; 09=Homeless; 10=Assisted living; 99=Unknown", "codes_list": [], "notes": "07 valid for discharge only.", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00012", "category": "Medical History", "canonical": "diabetes_history", "nscisc_code": "ADiabete", "description": "History of diabetes mellitus and control method.", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = No", "1 = Yes, controlled by medication (oral or injection)", "2 = Yes, controlled by diet and/or exercise only (no medication)", "3 = Yes, but no method of control is used", "4 = Yes, but unknown method of control", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Retain full nuance if sample size permits; can also collapse to Yes (1–4) vs No (0).", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00013", "category": "Medical History", "canonical": "hypertension_history", "nscisc_code": "AHypert", "description": "History of hypertension.", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = No", "1 = Yes", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Binary with explicit nonresponse codes.", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00014", "category": "Medical History", "canonical": "arthritis_history", "nscisc_code": "AArthrit", "description": "History of arthritis (OA/RA).", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = No", "1 = Yes", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Binary with explicit nonresponse codes.", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00015", "category": "Medical History", "canonical": "hyperlipidemia_history", "nscisc_code": "AHyperli", "description": "History of hyperlipidemia.", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = No", "1 = Yes", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Binary with explicit nonresponse codes.", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00016", "category": "Medical History", "canonical": "depression_history", "nscisc_code": "ADepress", "description": "History of clinically diagnosed depression.", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = No", "1 = Yes", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Binary with explicit nonresponse codes.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00017", "category": "Medical History", "canonical": "anxiety_history", "nscisc_code": "AAnxiety", "description": "History of clinically diagnosed anxiety disorder.", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = No", "1 = Yes", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Binary with explicit nonresponse codes.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00018", "category": "Medical History", "canonical": "alcohol_frequency", "nscisc_code": "AAlcRate", "description": "Frequency of drinking pre-injury (AUDIT-C component).", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = None", "1 = Monthly or less", "2 = 2–4 times a month", "3 = 2–3 times a week", "4 = 4 or more times a week", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Ordinal; consider treating as ordered categorical or map to midpoints.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00019", "category": "Medical History", "canonical": "alcohol_quantity", "nscisc_code": "AAlcNbDr", "description": "Typical number of drinks per occasion (AUDIT-C).", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = None", "1 = 1–2", "2 = 3–4", "3 = 5–6", "4 = 7–9", "5 = 10 or more", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Ordinal; skewed high categories are rare.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00020", "category": "Medical History", "canonical": "alcohol_binge_freq", "nscisc_code": "AAlc6Mor", "description": "Frequency of ≥6 drinks per occasion (AUDIT-C).", "characters": "1", "codes": "Use codes list", "codes_list": ["0 = None", "1 = Less than monthly", "2 = Monthly", "3 = Weekly", "4 = Daily or almost daily", "7 = Declined / Participant doesn’t know", "9 = Unknown"], "notes": "Ordinal; strong predictor in some outcomes.", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00021", "category": "Medical History", "canonical": "bmi", "nscisc_code": "Derived: AWghtRhb & AHghtRhb", "description": "Body Mass Index at rehab (kg/m²).", "characters": "-", "codes": "Derived: BMI = weight_kg / (height_m)^2", "codes_list": [], "notes": "Flag outliers (<10 or >80).", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00022", "category": "Injury & Clinical", "canonical": "days_injury_to_rehab", "nscisc_code": "AI2RhADa", "description": "Days from injury to rehabilitation admission.", "characters": "4", "codes": "0000–9999; 9999=Unknown", "codes_list": [], "notes": "Continuous integer.", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00023", "category": "Injury & Clinical", "canonical": "trauma_etiology", "nscisc_code": "ATrmEtio", "description": "Primary external cause of SCI.", "characters": "2", "codes": "See list", "codes_list": ["01 = Motor vehicle (driver)", "02 = Motor vehicle (passenger)", "03 = Motorcycle", "04 = Bicycle", "05 = Pedestrian", "06 = Fall on same level", "07 = Fall from height", "08 = Diving", "09 = Gunshot wound", "10 = Knife wound", "11 = Hit by falling object", "12 = Contact with machinery", "13 = Sports injury (contact)", "14 = Sports injury (noncontact)", "15 = Medical/surgical complication", "16 = Birth injury", "17 = Other transport accident", "18 = Work-related injury", "19 = Violence, non-firearm", "20 = Recreational accident", "21 = Disease-related (tumor, infection)", "22 = Unknown cause", "99 = Missing / Not documented"], "notes": "", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00024", "category": "Injury & Clinical", "canonical": "associated_injuries_present", "nscisc_code": "AAsscInj", "description": "Presence of associated non-spinal injuries.", "characters": "1", "codes": "0=No; 1=Yes; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00025", "category": "Injury & Clinical", "canonical": "vertebral_injury_present", "nscisc_code": "AVertInj", "description": "Presence of vertebral column injury (fracture/dislocation).", "characters": "1", "codes": "0=No; 1=Yes; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00026", "category": "Injury & Clinical", "canonical": "spinal_surgery_performed", "nscisc_code": "ASpinSrg", "description": "Spinal surgery performed during acute/rehab.", "characters": "1", "codes": "0=No; 1=Yes; 9=Unknown", "codes_list": [], "notes": "Includes stabilization/decompression.", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00027", "category": "Injury & Clinical", "canonical": "ventilation_at_admit", "nscisc_code": "AUMVAdm", "description": "Mechanical ventilation use at rehab admission.", "characters": "1", "codes": "0=No; 1=Yes; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00028", "category": "Injury & Clinical", "canonical": "ventilation_at_discharge", "nscisc_code": "AUMVDis", "description": "Mechanical ventilation use at discharge.", "characters": "1", "codes": "0=No; 1=Yes; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00029", "category": "Injury & Clinical", "canonical": "bladder_management_discharge", "nscisc_code": "ABdMMDis", "description": "Primary bladder management method at discharge.", "characters": "2", "codes": "See list", "codes_list": ["01 = Indwelling catheter (urethral or suprapubic)", "02 = Intermittent catheterization", "03 = Reflex voiding (condom / spontaneous)", "04 = Credé or Valsalva maneuver", "05 = External collection device (female)", "06 = Urinary diversion (e.g., ileal conduit)", "07 = Spontaneous, continent", "08 = Incontinent, unmanaged", "09 = Other method", "99 = Unknown"], "notes": "", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00030", "category": "Functional (FIM)", "canonical": "fim_motor_admit", "nscisc_code": "AFScorRb", "description": "FIM total motor score at rehab admission (13 items).", "characters": "2", "codes": "13–91; 99=Unknown", "codes_list": [], "notes": "Integer; pediatric <6yrs coded 99.", "pdf_page": 9, "var_id": "", "include_values": ""}, {"id": "row_00031", "category": "Functional (FIM)", "canonical": "fim_motor_discharge", "nscisc_code": "AFScorDs", "description": "FIM total motor score at discharge (13 items).", "characters": "2", "codes": "13–91; 99=Unknown", "codes_list": [], "notes": "", "pdf_page": 10, "var_id": "", "include_values": ""}, {"id": "row_00032", "category": "Functional (FIM)", "canonical": "fim_cognitive_admit", "nscisc_code": "AFScogRb", "description": "FIM cognitive score at rehab admission (5 items).", "characters": "2", "codes": "5–35; 99=Unknown", "codes_list": [], "notes": "", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00033", "category": "Functional (FIM)", "canonical": "fim_cognitive_discharge", "nscisc_code": "AFScogDs", "description": "FIM cognitive score at discharge (5 items).", "characters": "2", "codes": "5–35; 99=Unknown", "codes_list": [], "notes": "", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00034", "category": "Functional (FIM)", "canonical": "fim_total_admit", "nscisc_code": "AFScTotR", "description": "FIM total score at rehab admission (motor+cognitive).", "characters": "3", "codes": "18–126; 999=Unknown", "codes_list": [], "notes": "Derived.", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00035", "category": "Functional (FIM)", "canonical": "fim_total_discharge", "nscisc_code": "AFScTotD", "description": "FIM total score at discharge (motor+cognitive).", "characters": "3", "codes": "18–126; 999=Unknown", "codes_list": [], "notes": "Derived.", "pdf_page": null, "var_id": "", "include_values": ""}, {"id": "row_00036", "category": "Neurological (ISNCSCI)", "canonical": "asia_motor_admit", "nscisc_code": "AASATotR", "description": "ASIA motor total at rehab admission (0–100).", "characters": "3", "codes": "000–100; 888=Not testable; 999=Unknown", "codes_list": [], "notes": "", "pdf_page": 11, "var_id": "", "include_values": ""}, {"id": "row_00037", "category": "Neurological (ISNCSCI)", "canonical": "asia_motor_discharge", "nscisc_code": "AASATotD", "description": "ASIA motor total within 7 days of discharge (0–100).", "characters": "3", "codes": "000–100; 888=Not testable; 999=Unknown", "codes_list": [], "notes": "Outcome.", "pdf_page": 14, "var_id": "", "include_values": ""}, {"id": "row_00038", "category": "Neurological (ISNCSCI)", "canonical": "asia_light_touch_admit", "nscisc_code": "ALTTotRh", "description": "ASIA light touch sensory total at rehab admission (0–112).", "characters": "3", "codes": "000–112; 888=Not testable; 999=Unknown", "codes_list": [], "notes": "", "pdf_page": 12, "var_id": "", "include_values": ""}, {"id": "row_00039", "category": "Neurological (ISNCSCI)", "canonical": "asia_light_touch_discharge", "nscisc_code": "ALTTotDs", "description": "ASIA light touch sensory total at discharge (0–112).", "characters": "3", "codes": "000–112; 888=Not testable; 999=Unknown", "codes_list": [], "notes": "", "pdf_page": 15, "var_id": "", "include_values": ""}, {"id": "row_00040", "category": "Neurological (ISNCSCI)", "canonical": "asia_pin_prick_admit", "nscisc_code": "APPTotRh", "description": "ASIA pin-prick sensory total at rehab admission (0–112).", "characters": "3", "codes": "000–112; 888=Not testable; 999=Unknown", "codes_list": [], "notes": "", "pdf_page": 13, "var_id": "", "include_values": ""}, {"id": "row_00041", "category": "Neurological (ISNCSCI)", "canonical": "asia_pin_prick_discharge", "nscisc_code": "APPTotDs", "description": "ASIA pin-prick sensory total at discharge (0–112).", "characters": "3", "codes": "000–112; 888=Not testable; 999=Unknown", "codes_list": [], "notes": "", "pdf_page": 16, "var_id": "", "include_values": ""}, {"id": "row_00042", "category": "Neurological (ISNCSCI)", "canonical": "ais_grade_admit", "nscisc_code": "AASAImRb", "description": "ASIA Impairment Scale grade at rehab admission (A–E).", "characters": "1", "codes": "A=Complete; B=Sensory incomplete; C=Motor incomplete (<50 percent key muscles≥3/5); D=Motor incomplete (≥50 percent key muscles≥3/5); E=Normal; 9=Unknown", "codes_list": [], "notes": "Ordinal.", "pdf_page": 13, "var_id": "", "include_values": ""}, {"id": "row_00043", "category": "Neurological (ISNCSCI)", "canonical": "ais_grade_discharge", "nscisc_code": "AASAImDs", "description": "ASIA Impairment Scale grade at discharge (A–E).", "characters": "1", "codes": "A,B,C,D,E; 9=Unknown", "codes_list": [], "notes": "", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00044", "category": "Neurological (ISNCSCI)", "canonical": "neurological_level_admit", "nscisc_code": "ANurLvlR", "description": "Neurological level of injury at rehab admission.", "characters": "2", "codes": "C1–C8; T1–T12; L1–L5; S1–S5; 99=Unknown", "codes_list": [], "notes": "Categorical (spinal levels).", "pdf_page": 13, "var_id": "", "include_values": ""}, {"id": "row_00045", "category": "Neurological (ISNCSCI)", "canonical": "neurological_level_discharge", "nscisc_code": "ANurLvlD", "description": "Neurological level of injury at discharge.", "characters": "2", "codes": "C1–C8; T1–T12; L1–L5; S1–S5; 99=Unknown", "codes_list": [], "notes": "", "pdf_page": 17, "var_id": "", "include_values": ""}, {"id": "row_00046", "category": "Follow-up (Rehospitalization)", "canonical": "rehosp_count", "nscisc_code": "BRhspNbr", "description": "Number of rehospitalizations within 12 months after injury/discharge.", "characters": "2", "codes": "00=None; 01–98=Count; 99=Unknown", "codes_list": [], "notes": "Binary can be derived: rehosp_count>0.", "pdf_page": 19, "var_id": "", "include_values": ""}, {"id": "row_00047", "category": "Follow-up (Rehospitalization)", "canonical": "rehosp_total_days", "nscisc_code": "BRhspDaT", "description": "Total hospital days during follow-up year.", "characters": "3", "codes": "000–999; 999=Unknown", "codes_list": [], "notes": "", "pdf_page": 19, "var_id": "", "include_values": ""}, {"id": "row_00048", "category": "Follow-up (Rehospitalization)", "canonical": "rehosp_reason_1", "nscisc_code": "BRhspRs1", "description": "Reason for rehospitalization (event #1).", "characters": "2", "codes": "See list", "codes_list": ["01 = UTI", "02 = Pressure injury", "03 = Respiratory problem", "04 = Cardiovascular event", "05 = Gastrointestinal problem", "06 = Pain/spasticity", "07 = Hardware complication", "08 = Orthopedic/musculoskeletal", "09 = Skin/wound (non-pressure) infection", "10 = Sepsis / systemic infection", "11 = Renal problem", "12 = Autonomic dysreflexia / BP emergency", "13 = Mental-health–related", "14 = Rehabilitation readmission for therapy", "15 = Other specified cause", "99 = Unknown"], "notes": "Up to 8 reason variables per patient.", "pdf_page": 19, "var_id": "", "include_values": ""}, {"id": "row_00049", "category": "Follow-up (Rehospitalization)", "canonical": "rehosp_reason_2", "nscisc_code": "BRhspRs2", "description": "Reason for rehospitalization (event #2).", "characters": "2", "codes": "Same code set as rehosp_reason_1", "codes_list": [], "notes": "", "pdf_page": 19, "var_id": "", "include_values": ""}, {"id": "row_00050", "category": "Follow-up (Rehospitalization)", "canonical": "rehosp_reason_3", "nscisc_code": "BRhspRs3", "description": "Reason for rehospitalization (event #3).", "characters": "2", "codes": "Same code set as rehosp_reason_1", "codes_list": [], "notes": "", "pdf_page": 19, "var_id": "", "include_values": ""}];
+
+  const state = { q:"", category:"", sortKey:"category", sortDir:1, edit:false, selected: new Set() };
+  const els = {
+    search: document.getElementById('search'),
+    category: document.getElementById('category'),
+    addRow: document.getElementById('addRow'),
+    insertBelowSelected: document.getElementById('insertBelowSelected'),
+    exportJson: document.getElementById('exportJson'),
+    exportCsv: document.getElementById('exportCsv'),
+    loadJson: document.getElementById('loadJson'),
+    editMode: document.getElementById('editMode'),
+    tbody: document.querySelector('#tbl tbody'),
+    count: document.getElementById('count'),
+    headers: Array.from(document.querySelectorAll('th[data-key]'))
+  };
+
+  function uniq(arr){ return Array.from(new Set(arr)); }
+  function fillCategory(){
+    const cats = ["", ...uniq(DATA.map(d=>d.category || ""))];
+    els.category.innerHTML = cats.map(c=>`<option value="${c}">${c||"All categories"}</option>`).join('');
+  }
+
+  function normalize(s){ return (s ?? "").toString().toLowerCase(); }
+  function matches(d){
+    const q = normalize(state.q);
+    if (state.category && d.category !== state.category) return false;
+    if (!q) return true;
+    const blob = normalize([
+      d.category,d.var_id,d.canonical,d.nscisc_code,d.description,d.characters,d.codes,(d.codes_list||[]).join(' '),
+      d.include_values,d.notes,d.pdf_page
+    ].join(' '));
+    return blob.includes(q);
+  }
+
+  function rowInput(name, value, isArea=false){
+    if (!state.edit) return `<div>${value ?? ""}</div>`;
+    if (name === "codes_list") {
+      const text = (value||[]).join('\n');
+      return `<textarea data-name="codes_list">${text}</textarea>`;
+    }
+    const val = value ?? "";
+    return isArea
+      ? `<textarea data-name="${name}">${val}</textarea>`
+      : `<div contenteditable="true" data-name="${name}">${val}</div>`;
+  }
+
+  function render(){
+    const filtered = DATA.filter(matches);
+    const rows = filtered.sort((a,b)=>{
+      const ka = (a[state.sortKey] ?? "").toString().toLowerCase();
+      const kb = (b[state.sortKey] ?? "").toString().toLowerCase();
+      if (ka < kb) return -1*state.sortDir;
+      if (ka > kb) return 1*state.sortDir;
+      return 0;
+    }).map((d)=>{
+      const codesListView = state.edit
+        ? rowInput("codes_list", d.codes_list, true)
+        : (d.codes_list && d.codes_list.length
+           ? `<ul>` + d.codes_list.map(x=>`<li>${x}</li>`).join('') + `</ul>`
+           : `<span class="muted">—</span>`);
+      const actions = state.edit
+        ? `<div class="row-actions">
+             <button data-act="ins">Insert below</button>
+             <button data-act="dup">Duplicate</button>
+             <button data-act="del">Delete</button>
+           </div>`
+        : `<span class="muted">—</span>`;
+      const checked = state.selected.has(d.id) ? 'checked' : '';
+      return `<tr data-id="${d.id}">
+        <td class="sel-col"><input type="checkbox" class="sel" ${checked}/></td>
+        <td><span class="tag">${d.category}</span></td>
+        <td>${rowInput("var_id", d.var_id)} </td>
+        <td>${rowInput("canonical", d.canonical)} </td>
+        <td>${rowInput("nscisc_code", d.nscisc_code)} </td>
+        <td>${rowInput("description", d.description, true)} </td>
+        <td class="nowrap">${rowInput("characters", d.characters)} </td>
+        <td>${rowInput("codes", d.codes, true)} </td>
+        <td>${codesListView} </td>
+        <td>${rowInput("include_values", d.include_values, true)} </td>
+        <td>${rowInput("notes", d.notes, true)} </td>
+        <td class="nowrap">${rowInput("pdf_page", d.pdf_page)} </td>
+        <td>${actions}</td>
+      </tr>`;
+    }).join('');
+    els.tbody.innerHTML = rows || `<tr><td colspan="13">No results.</td></tr>`;
+    els.count.textContent = `${filtered.length} / ${DATA.length} variables shown`;
+  }
+
+  // Event handlers
+  els.search.addEventListener('input', e=>{ state.q = e.target.value; render(); });
+  els.category.addEventListener('change', e=>{ state.category = e.target.value; render(); });
+  els.headers.forEach(h=>h.addEventListener('click', ()=>{ 
+    const key = h.getAttribute('data-key'); if (!key) return;
+    if (state.sortKey === key) state.sortDir *= -1; else { state.sortKey = key; state.sortDir = 1; }
+    render(); 
+  }));
+  els.editMode.addEventListener('change', e=>{ state.edit = !!e.target.checked; render(); });
+
+  els.addRow.addEventListener('click', ()=>{ 
+    DATA.push({
+      id: `row_${String(Math.random()).slice(2)}`,
+      category:"", var_id:"", canonical:"", nscisc_code:"", description:"", characters:"",
+      codes:"", codes_list:[], include_values:"", notes:"", pdf_page:""
+    });
+    fillCategory(); render(); 
+  });
+
+  els.insertBelowSelected.addEventListener('click', ()=>{
+    const ids = Array.from(state.selected);
+    if (ids.length === 0) return alert('Select a row first (Sel checkbox).');
+    const order = DATA.map(r=>r.id);
+    const chosen = ids.sort((a,b)=> order.indexOf(a) - order.indexOf(b))[0];
+    const idx = order.indexOf(chosen);
+    const base = DATA[idx];
+    const blank = {
+      id: `row_${String(Math.random()).slice(2)}`,
+      category: base.category, var_id:"", canonical:"", nscisc_code:"", description:"", characters:"",
+      codes:"", codes_list:[], include_values:"", notes:"", pdf_page: base.pdf_page || ""
+    };
+    DATA.splice(idx+1, 0, blank);
+    render();
+  });
+
+  // delegate selection and row actions
+  document.getElementById('tbl').addEventListener('change', e=>{
+    if (!e.target.classList.contains('sel')) return;
+    const tr = e.target.closest('tr'); if (!tr) return;
+    const id = tr.getAttribute('data-id');
+    if (e.target.checked) state.selected.add(id); else state.selected.delete(id);
+  });
+
+  document.getElementById('tbl').addEventListener('click', e=>{
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const tr = e.target.closest('tr'); if (!tr) return;
+    const id = tr.getAttribute('data-id');
+    const idx = DATA.findIndex(r=>r.id===id);
+    if (idx < 0) return;
+    if (btn.dataset.act === 'del') { DATA.splice(idx,1); state.selected.delete(id); render(); fillCategory(); }
+    if (btn.dataset.act === 'dup') { const clone = JSON.parse(JSON.stringify(DATA[idx])); clone.id = `row_${String(Math.random()).slice(2)}`; DATA.splice(idx+1,0,clone); render(); }
+    if (btn.dataset.act === 'ins') { 
+      const base = DATA[idx];
+      const blank = {
+        id: `row_${String(Math.random()).slice(2)}`,
+        category: base.category, var_id:"", canonical:"", nscisc_code:"", description:"", characters:"",
+        codes:"", codes_list:[], include_values:"", notes:"", pdf_page: base.pdf_page || ""
+      };
+      DATA.splice(idx+1, 0, blank);
+      render();
+    }
+  });
+
+  // persist edits
+  els.tbody.addEventListener('focusout', e=>{
+    if (!state.edit) return;
+    const el = e.target;
+    const tr = el.closest('tr'); if (!tr) return;
+    const id = tr.getAttribute('data-id');
+    const idx = DATA.findIndex(r=>r.id===id); if (idx < 0) return;
+    const name = el.getAttribute('data-name'); if (!name) return;
+    if (name === 'codes_list') {
+      const lines = el.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+      DATA[idx][name] = lines;
+    } else {
+      const val = el.value !== undefined ? el.value : el.textContent;
+      DATA[idx][name] = val;
+    }
+  });
+
+  // export / import
+  function download(filename, content, mime){
+    const blob = new Blob([content], {type: mime || 'application/octet-stream'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 0);
+  }
+
+  document.getElementById('exportJson').addEventListener('click', ()=>{
+    download('nscisc_dictionary_v8.json', JSON.stringify(DATA, null, 2), 'application/json;charset=utf-8;');
+  });
+
+  document.getElementById('exportCsv').addEventListener('click', ()=>{
+    const cols = ["category","var_id","canonical","nscisc_code","description","characters","codes","codes_list","include_values","notes","pdf_page"];
+    const esc = s => '"' + (s ?? '').toString().replace(/"/g, '""') + '"';
+    const body = DATA.map(r => cols.map(c => c==="codes_list" ? esc((r[c]||[]).join(' | ')) : esc(r[c])).join(',')).join('\n');
+    const head = cols.join(',');
+    download('nscisc_dictionary_v8.csv', head + '\n' + body, 'text/csv;charset=utf-8;');
+  });
+
+  document.getElementById('loadJson').addEventListener('change', e=>{
+    const file = e.target.files && e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        if (!Array.isArray(parsed)) throw new Error('JSON must be an array of rows');
+        DATA = parsed; fillCategory(); render();
+      } catch (err) { alert('Failed to parse JSON: ' + err.message); }
+    };
+    reader.readAsText(file);
+  });
+
+  function init(){ fillCategory(); render(); }
+  init();
+</script>
+</body>
+</html>

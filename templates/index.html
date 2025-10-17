@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASIA SCI Outcome Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 ASIA Spinal Cord Injury Outcome Prediction</h1>
+            <p class="subtitle">Machine Learning-Based Predictions for Motor Score and Impairment Grade at Discharge</p>
+            <nav>
+                <a href="/">Predict</a>
+                <a href="/about">About</a>
+                <a href="https://github.com/yourusername/asia-sci-prediction" target="_blank">GitHub</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <div class="form-section">
+                    <h2>Patient Data at Admission</h2>
+                    <p class="form-description">Enter patient information at time of admission to predict discharge outcomes</p>
+                    
+                    <form id="predictionForm">
+                        <!-- ASIA Scores (Most Important) -->
+                        <div class="form-group-header">
+                            <h3>⭐ ASIA Assessment (Most Important)</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="admission_motor">ASIA Motor Score at Admission (0-100) *</label>
+                                <input type="number" id="admission_motor" name="admission_motor" min="0" max="100" value="42" required>
+                                <small>Total motor score across all myotomes</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="admission_grade">ASIA Impairment Grade at Admission *</label>
+                                <select id="admission_grade" name="admission_grade" required>
+                                    <option value="A">A - Complete</option>
+                                    <option value="B">B - Sensory Incomplete</option>
+                                    <option value="C" selected>C - Motor Incomplete <50%</option>
+                                    <option value="D">D - Motor Incomplete ≥50%</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="neuro_level">Neurological Level *</label>
+                                <input type="text" id="neuro_level" name="neuro_level" value="T4" placeholder="e.g., C5, T4, L1" required>
+                                <small>e.g., C5, C6, T4, T10, L1</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="functional_score">Functional Independence Score</label>
+                                <input type="number" id="functional_score" name="functional_score" min="0" max="126" value="50">
+                                <small>FIM score at rehab admission (0-126)</small>
+                            </div>
+                        </div>
+
+                        <!-- Demographics -->
+                        <div class="form-group-header">
+                            <h3>👤 Demographics</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age at Injury *</label>
+                                <input type="number" id="age" name="age" min="0" max="120" value="45" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="sex">Sex *</label>
+                                <select id="sex" name="sex" required>
+                                    <option value="1" selected>Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Other</option>
+                                    <option value="9">Unknown</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="race">Race</label>
+                                <select id="race" name="race">
+                                    <option value="1" selected>White</option>
+                                    <option value="2">Black/African American</option>
+                                    <option value="3">Asian</option>
+                                    <option value="4">Native American</option>
+                                    <option value="5">Other</option>
+                                    <option value="9">Unknown</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="hispanic">Hispanic/Latino</label>
+                                <select id="hispanic" name="hispanic">
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="9">Unknown</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="marital">Marital Status</label>
+                                <select id="marital" name="marital">
+                                    <option value="1">Single</option>
+                                    <option value="2" selected>Married</option>
+                                    <option value="3">Divorced</option>
+                                    <option value="4">Widowed</option>
+                                    <option value="9">Unknown</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="education">Education Level</label>
+                                <select id="education" name="education">
+                                    <option value="1">Less than high school</option>
+                                    <option value="2">High school</option>
+                                    <option value="3" selected>Some college</option>
+                                    <option value="4">College graduate</option>
+                                    <option value="5">Graduate degree</option>
+                                    <option value="9">Unknown</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Injury Details -->
+                        <div class="form-group-header">
+                            <h3>🚑 Injury & Treatment</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="days_to_rehab">Days from Injury to Rehab Admission *</label>
+                                <input type="number" id="days_to_rehab" name="days_to_rehab" min="0" value="25" required>
+                                <small>Time between injury and rehab admission</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="etiology">Traumatic Etiology</label>
+                                <select id="etiology" name="etiology">
+                                    <option value="1" selected>Traumatic</option>
+                                    <option value="2">Non-traumatic</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vertebral_injury">Vertebral Injury</label>
+                                <select id="vertebral_injury" name="vertebral_injury">
+                                    <option value="0">No</option>
+                                    <option value="1" selected>Yes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="surgery">Spinal Surgery</label>
+                                <select id="surgery" name="surgery">
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="associated_injuries">Associated Injuries</label>
+                                <select id="associated_injuries" name="associated_injuries">
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="ventilation">Mechanical Ventilation at Admission</label>
+                                <select id="ventilation" name="ventilation">
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Medical History -->
+                        <div class="form-group-header">
+                            <h3>🏥 Medical History</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="diabetes">Diabetes</label>
+                                <select id="diabetes" name="diabetes">
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="depression">Depression</label>
+                                <select id="depression" name="depression">
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="anxiety">Anxiety</label>
+                                <select id="anxiety" name="anxiety">
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="alcohol_rate">Alcohol Use</label>
+                                <select id="alcohol_rate" name="alcohol_rate">
+                                    <option value="0" selected>None</option>
+                                    <option value="1">Occasional</option>
+                                    <option value="2">Regular</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Socioeconomic (Collapsed by default) -->
+                        <div class="form-group-header collapsible" onclick="toggleSection('socioeconomic')">
+                            <h3>📊 Socioeconomic (Optional - Click to expand) <span class="toggle-icon">▼</span></h3>
+                        </div>
+                        
+                        <div id="socioeconomic" class="collapsible-content" style="display: none;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="income">Family Income Level</label>
+                                    <select id="income" name="income">
+                                        <option value="1">Low</option>
+                                        <option value="2">Lower-middle</option>
+                                        <option value="3" selected>Middle</option>
+                                        <option value="4">Upper-middle</option>
+                                        <option value="5">High</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="payer">Primary Payer</label>
+                                    <select id="payer" name="payer">
+                                        <option value="1" selected>Private Insurance</option>
+                                        <option value="2">Medicare</option>
+                                        <option value="3">Medicaid</option>
+                                        <option value="4">Workers Comp</option>
+                                        <option value="5">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="language">Primary Language</label>
+                                    <select id="language" name="language">
+                                        <option value="1" selected>English</option>
+                                        <option value="2">Spanish</option>
+                                        <option value="3">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="residence">Residence Before Injury</label>
+                                    <select id="residence" name="residence">
+                                        <option value="1" selected>Home</option>
+                                        <option value="2">Institution</option>
+                                        <option value="3">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="alcohol_drinks">Number of Drinks per Occasion</label>
+                                    <input type="number" id="alcohol_drinks" name="alcohol_drinks" min="0" value="0">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="binge">Binge Drinking (6+ drinks)</label>
+                                    <select id="binge" name="binge">
+                                        <option value="0" selected>No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">🔮 Predict Discharge Outcomes</button>
+                    </form>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection" style="display: none;">
+                    <h2>📊 Prediction Results</h2>
+                    
+                    <!-- Motor Score Results -->
+                    <div class="result-card motor-card">
+                        <h3>🎯 Motor Score Prediction</h3>
+                        <div class="result-main">
+                            <div class="result-value">
+                                <div class="label">Predicted Discharge Score</div>
+                                <div class="value" id="predictedMotorScore">--</div>
+                                <div class="unit">/ 100 points</div>
+                            </div>
+                            <div class="result-change">
+                                <div class="label">Expected Change</div>
+                                <div class="value" id="motorChange">--</div>
+                                <div class="unit">points</div>
+                            </div>
+                        </div>
+                        <div class="result-interpretation" id="motorInterpretation">--</div>
+                        <div class="result-details">
+                            <small>Admission Score: <span id="admissionMotorScore">--</span></small>
+                        </div>
+                    </div>
+
+                    <!-- Grade Results -->
+                    <div class="result-card grade-card">
+                        <h3>📋 Impairment Grade Prediction</h3>
+                        <div class="result-main">
+                            <div class="result-value">
+                                <div class="label">Predicted Discharge Grade</div>
+                                <div class="value grade-value" id="predictedGrade">--</div>
+                                <div class="unit confidence">Confidence: <span id="gradeConfidence">--</span>%</div>
+                            </div>
+                        </div>
+                        <div class="result-description" id="gradeDescription">--</div>
+                        <div class="result-interpretation" id="gradeInterpretation">--</div>
+                        
+                        <div class="probability-bars" id="probabilityBars">
+                            <!-- Probability bars will be inserted here -->
+                        </div>
+                        
+                        <div class="result-details">
+                            <small>Admission Grade: <span id="admissionGrade">--</span></small>
+                        </div>
+                    </div>
+
+                    <div class="disclaimer">
+                        <strong>⚠️ Clinical Disclaimer:</strong> These predictions are based on statistical models trained on historical data (10,543 patients for motor score, 15,053 for impairment grade). They should be used for early counseling and goal-setting only. Individual outcomes may vary. Clinical decisions should be made by qualified healthcare professionals using comprehensive patient assessment.
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 ASIA SCI Outcome Prediction | Random Forest Models | <a href="/about">About</a> | <a href="https://github.com/yourusername/asia-sci-prediction">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+

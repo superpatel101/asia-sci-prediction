@@ -1,0 +1,156 @@
+
+================================================================================
+ASIA MOTOR SCORE ANALYSIS: BY 20-POINT ADMISSION RANGES
+================================================================================
+
+Total Patients: 10,543
+
+OVERALL CORRELATION:
+  • Pearson r = 0.8350 (R² = 0.6972)
+  • Admission score explains 69.7% of discharge variance
+  • VERY STRONG positive correlation
+
+OVERALL SCORES:
+  • Mean Admission:  42.7 ± 25.2
+  • Mean Discharge:  52.7 ± 27.1
+  • Mean Change:     10.0 ± 15.1
+
+OUTCOMES:
+  • Improved:  6,751 (64.0%)
+  • Unchanged: 3,202 (30.4%)
+  • Declined:  590 (5.6%)
+
+================================================================================
+ANALYSIS BY 20-POINT BUCKETS
+================================================================================
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ADMISSION SCORE: 0-19 points - 2,687 patients                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Motor Scores:
+  Admission:  Mean =   8.3 ±  6.4, Median =   8.0
+  Discharge:  Mean =  20.8 ± 20.5, Median =  16.0
+  
+Recovery:
+  Mean Change:      +12.5 ± 18.6 points
+  Median Change:     +5.0 points
+  
+  Correlation: r = 0.443
+  
+Outcomes:
+  •  76.0% IMPROVED
+  •  18.5% UNCHANGED
+  •   5.5% DECLINED
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ADMISSION SCORE: 20-39 points - 1,321 patients                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Motor Scores:
+  Admission:  Mean =  30.5 ±  6.3, Median =  30.0
+  Discharge:  Mean =  49.4 ± 20.2, Median =  46.0
+  
+Recovery:
+  Mean Change:      +18.9 ± 19.2 points
+  Median Change:    +12.0 points
+  
+  Correlation: r = 0.319
+  
+Outcomes:
+  •  86.2% IMPROVED
+  •   7.2% UNCHANGED
+  •   6.6% DECLINED
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ADMISSION SCORE: 40-59 points - 4,396 patients                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Motor Scores:
+  Admission:  Mean =  50.5 ±  3.3, Median =  50.0
+  Discharge:  Mean =  56.9 ± 12.3, Median =  50.0
+  
+Recovery:
+  Mean Change:       +6.4 ± 11.7 points
+  Median Change:     +0.0 points
+  
+  Correlation: r = 0.335
+  
+Outcomes:
+  •  42.4% IMPROVED
+  •  54.2% UNCHANGED
+  •   3.4% DECLINED
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ADMISSION SCORE: 60-79 points - 1,342 patients                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Motor Scores:
+  Admission:  Mean =  70.2 ±  5.8, Median =  70.0
+  Discharge:  Mean =  82.1 ± 10.1, Median =  83.0
+  
+Recovery:
+  Mean Change:      +11.9 ±  9.7 points
+  Median Change:    +12.0 points
+  
+  Correlation: r = 0.365
+  
+Outcomes:
+  •  87.6% IMPROVED
+  •   7.5% UNCHANGED
+  •   5.0% DECLINED
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ADMISSION SCORE: 80-100 points - 797 patients                                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Motor Scores:
+  Admission:  Mean =  89.4 ±  5.8, Median =  89.0
+  Discharge:  Mean =  92.4 ±  8.1, Median =  94.0
+  
+Recovery:
+  Mean Change:       +3.0 ±  8.6 points
+  Median Change:     +3.0 points
+  
+  Correlation: r = 0.268
+  
+Outcomes:
+  •  66.4% IMPROVED
+  •  15.9% UNCHANGED
+  •  17.7% DECLINED
+
+================================================================================
+KEY CLINICAL INSIGHTS
+================================================================================
+
+1. ADMISSION SCORE IS EXCELLENT PREDICTOR:
+   ✓ R² = 0.697 means 70% of discharge variance explained
+   ✓ This is one of the strongest predictors in SCI outcomes
+   
+2. RECOVERY PATTERN BY SCORE RANGE:
+   • 0-19 points: Average change +12.5, 76% improve
+   • 20-39 points: Average change +18.9, 86% improve
+   • 40-59 points: Average change +6.4, 42% improve
+   • 60-79 points: Average change +11.9, 88% improve
+   • 80-100 points: Average change +3.0, 66% improve
+
+3. CEILING EFFECT:
+   • Patients starting at higher scores have less room to improve
+   • But even modest gains (5-10 points) can be functionally significant
+   
+4. FLOOR EFFECT:
+   • Very low scores (<20) have more room but face greater challenges
+   • Improvements in this range represent major recovery
+
+5. CLINICAL COUNSELING:
+   At admission, use the patient's motor score to counsel on expected outcome:
+   
+   Score 0-19:   Expected discharge ~21, change +13
+   Score 20-39:  Expected discharge ~49, change +19
+   Score 40-59:  Expected discharge ~57, change +6
+   Score 60-79:  Expected discharge ~82, change +12
+   Score 80-100: Expected discharge ~92, change +3
+
+================================================================================
+Generated: 2025-10-16 19:57:01
+================================================================================

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - ASIA SCI Outcome Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 ASIA Spinal Cord Injury Outcome Prediction</h1>
+            <p class="subtitle">About the Models</p>
+            <nav>
+                <a href="/">Predict</a>
+                <a href="/about" class="active">About</a>
+                <a href="https://github.com/yourusername/asia-sci-prediction" target="_blank">GitHub</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="about-content">
+                <section>
+                    <h2>📖 Overview</h2>
+                    <p>This application provides machine learning-based predictions for spinal cord injury outcomes at discharge, based on patient data collected at admission. Two Random Forest models were trained on data from the National Spinal Cord Injury Statistical Center (NSCISC) database:</p>
+                    <ul>
+                        <li><strong>Motor Score Predictor:</strong> Predicts ASIA motor score at discharge (0-100 scale)</li>
+                        <li><strong>Impairment Grade Predictor:</strong> Predicts ASIA Impairment Scale grade at discharge (A/B/C/D/E)</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>🎯 Model Performance</h2>
+                    
+                    <h3>Motor Score Prediction Model</h3>
+                    <ul>
+                        <li><strong>R² Score:</strong> 0.3832 (explains 38.3% of variance)</li>
+                        <li><strong>RMSE:</strong> 21.0 points</li>
+                        <li><strong>MAE:</strong> 14.8 points</li>
+                        <li><strong>Training Data:</strong> 10,543 patients</li>
+                        <li><strong>Algorithm:</strong> Random Forest Regressor (200 trees)</li>
+                    </ul>
+
+                    <h3>Impairment Grade Prediction Model</h3>
+                    <ul>
+                        <li><strong>Accuracy:</strong> 75.4%</li>
+                        <li><strong>F1-Score (Weighted):</strong> 0.7433</li>
+                        <li><strong>AUC (Weighted):</strong> 0.9178</li>
+                        <li><strong>Training Data:</strong> 15,053 patients</li>
+                        <li><strong>Algorithm:</strong> Random Forest Classifier (200 trees)</li>
+                    </ul>
+
+                    <h4>Per-Grade Performance:</h4>
+                    <table class="performance-table">
+                        <thead>
+                            <tr>
+                                <th>Grade</th>
+                                <th>F1-Score</th>
+                                <th>Precision</th>
+                                <th>Recall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>A (Complete)</td>
+                                <td>0.73</td>
+                                <td>0.76</td>
+                                <td>0.71</td>
+                            </tr>
+                            <tr>
+                                <td>B (Sensory Incomplete)</td>
+                                <td>0.56</td>
+                                <td>0.59</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>C (Motor <50%)</td>
+                                <td>0.76</td>
+                                <td>0.77</td>
+                                <td>0.75</td>
+                            </tr>
+                            <tr>
+                                <td>D (Motor ≥50%)</td>
+                                <td>0.68</td>
+                                <td>0.71</td>
+                                <td>0.66</td>
+                            </tr>
+                            <tr>
+                                <td>E (Normal)</td>
+                                <td>0.84</td>
+                                <td>0.81</td>
+                                <td>0.88</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>📊 Expected Recovery by Grade</h2>
+                    <p>Based on training data analysis:</p>
+                    <ul>
+                        <li><strong>Grade A (Complete):</strong> Average improvement +3.8 ± 9.3 points, 43% improve</li>
+                        <li><strong>Grade B (Sensory Incomplete):</strong> Average improvement +14.9 ± 18.8 points, 79% improve</li>
+                        <li><strong>Grade C (Motor <50%):</strong> Average improvement +25.6 ± 20.1 points, 91% improve ⭐</li>
+                        <li><strong>Grade D (Motor ≥50%):</strong> Average improvement +12.3 ± 12.9 points, 83% improve</li>
+                    </ul>
+                    <p><em>Grade C patients show the best motor recovery potential.</em></p>
+                </section>
+
+                <section>
+                    <h2>🔬 Most Important Features</h2>
+                    <p>The models use 26 admission-time features. The most influential are:</p>
+                    
+                    <h3>For Motor Score Prediction:</h3>
+                    <ol>
+                        <li><strong>ASIA Motor Score at Admission (42.9%)</strong> - Most predictive factor</li>
+                        <li><strong>ASIA Impairment Grade at Admission (19.7%)</strong></li>
+                        <li>Functional Independence Score (8.5%)</li>
+                        <li>Neurological Level (6.7%)</li>
+                        <li>Mechanical Ventilation (5.4%)</li>
+                    </ol>
+
+                    <h3>For Impairment Grade Prediction:</h3>
+                    <ol>
+                        <li><strong>ASIA Impairment Grade at Admission (38.3%)</strong> - Most predictive factor</li>
+                        <li><strong>Days from Injury to Rehab (14.2%)</strong></li>
+                        <li>Mechanical Ventilation (7.5%)</li>
+                        <li>Neurological Level (7.4%)</li>
+                        <li>Age at Injury (7.2%)</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>⚠️ Limitations</h2>
+                    <ul>
+                        <li>Motor score model explains 38% of variance - 62% remains unexplained</li>
+                        <li>Individual outcomes can vary significantly from predictions</li>
+                        <li>Models trained on North American population (NSCISC database)</li>
+                        <li>Grade B classification has lower accuracy (F1=0.56)</li>
+                        <li>Predictions are statistical estimates, not guarantees</li>
+                        <li><strong>No data leakage</strong> - uses admission features only</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>🎓 Clinical Use</h2>
+                    <p>These models are designed to assist with:</p>
+                    <ul>
+                        <li>Early patient and family counseling</li>
+                        <li>Setting realistic expectations and goals</li>
+                        <li>Rehabilitation planning and resource allocation</li>
+                        <li>Research and quality improvement initiatives</li>
+                    </ul>
+                    <p><strong>Important:</strong> Predictions should complement, not replace, clinical judgment. They provide statistical likelihoods based on historical data.</p>
+                </section>
+
+                <section>
+                    <h2>💾 Data Source</h2>
+                    <p>Models were trained on the National Spinal Cord Injury Statistical Center (NSCISC) database, which contains comprehensive data on spinal cord injury patients from specialized centers across North America.</p>
+                </section>
+
+                <section>
+                    <h2>🔗 Links & Resources</h2>
+                    <ul>
+                        <li><a href="https://github.com/yourusername/asia-sci-prediction">GitHub Repository</a> - Source code and documentation</li>
+                        <li><a href="/">Prediction Tool</a> - Make predictions</li>
+                        <li><a href="https://www.nscisc.uab.edu/">NSCISC Website</a> - National SCI Statistical Center</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>📜 Citation</h2>
+                    <pre><code>ASIA Spinal Cord Injury Outcome Prediction Models
+Trained on the National Spinal Cord Injury Statistical Center (NSCISC) Database
+Models: Random Forest Regressor (Motor Score) and Random Forest Classifier (Impairment Grade)
+Date: October 2024</code></pre>
+                </section>
+
+                <section>
+                    <h2>📧 Contact & Disclaimer</h2>
+                    <p>These models are for research and educational purposes. Clinical decisions should be made by qualified healthcare professionals using comprehensive patient assessment.</p>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 ASIA SCI Outcome Prediction | Random Forest Models | <a href="/about" class="active">About</a> | <a href="https://github.com/yourusername/asia-sci-prediction">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+</html>
+
