@@ -69,14 +69,14 @@ def predict():
                 'interpretation': get_motor_interpretation(motor_result['expected_improvement'])
             },
             'grade_prediction': {
-                'predicted_grade': grade_result['predicted_discharge_grade'],
+                'predicted_grade': grade_result['predicted_grade'],
                 'admission_grade': grade_result['admission_grade'],
-                'confidence': round(grade_result['confidence'] * 100, 1),
+                'confidence': grade_result['confidence'],
                 'description': grade_result['predicted_grade_description'],
-                'probabilities': {k: round(v*100, 1) for k, v in grade_result['grade_probabilities'].items()},
+                'probabilities': grade_result['class_probabilities'],
                 'interpretation': get_grade_interpretation(
                     grade_result['admission_grade'], 
-                    grade_result['predicted_discharge_grade']
+                    grade_result['predicted_grade']
                 )
             }
         }
