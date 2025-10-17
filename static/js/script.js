@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show loading state
         submitBtn.classList.add('loading');
-        submitBtn.textContent = '🔮 Predicting';
+        submitBtn.textContent = 'Predicting';
         submitBtn.disabled = true;
         
         // Get form data
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             // Reset button
             submitBtn.classList.remove('loading');
-            submitBtn.textContent = '🔮 Predict Discharge Outcomes';
+            submitBtn.textContent = 'Predict Discharge Outcomes';
             submitBtn.disabled = false;
         }
     });
